@@ -14,7 +14,7 @@ class Window:
         self.window = None
 
     def init(self):
-        self.window = pg.display.set_mode((self.screen_width, self.screen_height), pg.RESIZABLE)
+        self.window = pg.display.set_mode((self.screen_width, self.screen_height))
         pg.display.set_caption(self.screen_caption_text)
 
     def render_text(self, color, position, size, text):
@@ -26,9 +26,12 @@ class Window:
     def update(self):
         self.window.fill((0, 0, 0))
 
-        self.render_debug_info()
+        self.update_ui()
 
         pg.display.update()
+
+    def update_ui(self):
+        self.render_debug_info()
 
     def render_debug_info(self):
         self.render_text((255, 255, 255), (0, 0), 30, f"FPS: {int(self.game.clock.get_fps())}")

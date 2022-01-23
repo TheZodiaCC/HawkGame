@@ -1,22 +1,22 @@
 import pygame as pg
 from core.consts import WindowConsts
+from core.render.window import Window
 
 
 class Game:
     def __init__(self):
-        self.screen_width = WindowConsts.SCREEN_WIDTH
-        self.screen_height = WindowConsts.SCREEN_HEIGHT
-
-        self.window = None
+        self.window = Window(WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT, WindowConsts.CAPTION_TEXT)
         self.is_running = False
 
     def init(self):
-        self.window = pg.display.set_mode((self.screen_width, self.screen_height))
-        pg.display.set_caption(WindowConsts.CAPTION_TEXT)
+        self.is_running = True
+        self.window.init()
 
     def mainloop(self):
         while self.is_running:
             self.handle_events(pg.event.get())
+
+            self.window.update()
 
         self.quit()
 
@@ -27,8 +27,6 @@ class Game:
 
     def run(self):
         self.init()
-
-        self.is_running = True
 
         self.mainloop()
 

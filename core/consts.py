@@ -3,8 +3,8 @@ class WindowConsts:
     SCREEN_HEIGHT = 480
     CAPTION_TEXT = "HawkGame"
 
-    FPS_LIMIT = 120
+    DEFAULT_FONT = "Comic Sans MS"
 
 
 class GameConsts:
-    pass
+    FPS_LIMIT = 120

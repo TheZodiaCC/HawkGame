@@ -49,5 +49,7 @@ class Window:
 
         self.window.blit(model, entity.rect)
 
+        pg.draw.circle(self.window, (255, 0, 0), entity.rect.center, 2, 2)
+
     def render_debug_info(self):
         self.render_text((255, 255, 255), (0, 0), 30, f"FPS: {int(self.game.clock.get_fps())}")

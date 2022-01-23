@@ -35,7 +35,7 @@ class Game:
             self.calculate_delta_time()
             self.handle_events(pg.event.get())
 
-            self.player_controller.update(pg.event.get())
+            self.player_controller.update(self.delta_time)
 
             self.window.update()
 

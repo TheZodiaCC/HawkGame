@@ -47,9 +47,13 @@ class Window:
     def render_entity(self, entity):
         model = pg.transform.rotate(entity.model, entity.orientation_diff)
 
-        self.window.blit(model, entity.rect)
+        draw_pos = (entity.rect.x - int(model.get_width() / 2), entity.rect.y - int(model.get_height() / 2))
 
+        self.window.blit(model, draw_pos)
+
+        # Debug
         pg.draw.circle(self.window, (255, 0, 0), entity.rect.center, 2, 2)
+        pg.draw.rect(self.window, (255, 0, 0), entity.rect, 2, 2)
 
     def render_debug_info(self):
         self.render_text((255, 255, 255), (0, 0), 30, f"FPS: {int(self.game.clock.get_fps())}")

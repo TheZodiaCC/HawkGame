@@ -1,16 +1,18 @@
 import pygame as pg
+from core.consts import WindowConsts
 
 
 class Game:
     def __init__(self):
-        self.screen_width = 300
-        self.screen_height = 250
+        self.screen_width = WindowConsts.SCREEN_WIDTH
+        self.screen_height = WindowConsts.SCREEN_HEIGHT
 
         self.window = None
         self.is_running = False
 
     def init(self):
         self.window = pg.display.set_mode((self.screen_width, self.screen_height))
+        pg.display.set_caption(WindowConsts.CAPTION_TEXT)
 
     def mainloop(self):
         while self.is_running:

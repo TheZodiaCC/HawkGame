@@ -23,10 +23,16 @@ class Window:
 
         self.window.blit(text, position)
 
+    def render_pointer(self):
+        x, y = pg.mouse.get_pos()
+
+        pg.draw.circle(self.window, (255, 255, 255), (x, y), 10, 1)
+
     def update(self):
         self.window.fill((0, 0, 0))
 
         self.update_ui()
+        # self.render_pointer()
 
         pg.display.update()
 

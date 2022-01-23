@@ -2,6 +2,8 @@ import pygame as pg
 import time
 from core.consts import WindowConsts, GameConsts
 from core.render.window import Window
+from game_modules.entities.player import Player
+from core.controllers.player_controller import PlayerController
 
 
 class Game:
@@ -12,6 +14,11 @@ class Game:
         self.clock = pg.time.Clock()
         self.delta_time = 0
         self.prev_time = 0
+
+        self.player = Player()
+        self.player_controller = PlayerController(self.player)
+
+        self.entities = [self.player]
 
     def init(self):
         pg.init()
@@ -27,6 +34,8 @@ class Game:
 
             self.calculate_delta_time()
             self.handle_events(pg.event.get())
+
+            self.player_controller.update(pg.event.get())
 
             self.window.update()
 

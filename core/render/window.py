@@ -32,12 +32,22 @@ class Window:
         self.window.fill((0, 0, 0))
 
         self.update_ui()
+        self.handle_entities()
         # self.render_pointer()
 
         pg.display.update()
 
     def update_ui(self):
         self.render_debug_info()
+
+    def handle_entities(self):
+        for entity in self.game.entities:
+            self.render_entity(entity)
+
+    def render_entity(self, entity):
+        model = pg.transform.rotate(entity.model, entity.orientation_diff)
+
+        self.window.blit(model, entity.rect)
 
     def render_debug_info(self):
         self.render_text((255, 255, 255), (0, 0), 30, f"FPS: {int(self.game.clock.get_fps())}")

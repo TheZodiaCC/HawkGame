@@ -13,7 +13,6 @@ class Game:
 
         self.clock = pg.time.Clock()
         self.delta_time = 0
-        self.prev_time = 0
 
         self.player = Player()
         self.player_controller = PlayerController(self.player)
@@ -27,12 +26,12 @@ class Game:
         self.is_running = True
 
     def mainloop(self):
-        self.prev_time = time.time()
+        prev_time = time.time()
 
         while self.is_running:
             self.clock.tick(GameConsts.FPS_LIMIT)
 
-            self.calculate_delta_time()
+            prev_time = self.calculate_delta_time(prev_time)
             self.handle_events(pg.event.get())
 
             self.player_controller.update(self.delta_time)
@@ -46,11 +45,12 @@ class Game:
             if event.type == pg.QUIT:
                 self.is_running = False
 
-    def calculate_delta_time(self):
+    def calculate_delta_time(self, prev_time):
         now = time.time()
 
-        self.delta_time = now - self.prev_time
-        self.prev_time = now
+        self.delta_time = now - prev_time
+
+        return now
 
     def run(self):
         self.init()

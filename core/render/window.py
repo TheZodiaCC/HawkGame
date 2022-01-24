@@ -39,7 +39,7 @@ class Window:
             self.render_entity(entity)
 
     def render_entity(self, entity):
-        rotated_model = pg.transform.rotate(entity.model, entity.orientation_diff)
+        rotated_model = pg.transform.rotate(entity.render_object.model, entity.orientation_diff)
 
         pos = [entity.get_position()[0] - rotated_model.get_width() / 2,
                entity.get_position()[1] - rotated_model.get_height() / 2]

@@ -1,4 +1,6 @@
 import pygame as pg
+from core.utils import screen_utils
+from core.consts import WindowConsts
 
 
 class PlayerController:
@@ -13,7 +15,10 @@ class PlayerController:
         if pg.mouse.get_focused():
             mouse_x, mouse_y = pg.mouse.get_pos()
 
-            self.player.set_orientation((mouse_x, mouse_y))
+            converted_mouse_cords = screen_utils.convert_point_to_different_resolution(
+                [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], [mouse_x, mouse_y])
+
+            self.player.set_orientation(converted_mouse_cords)
 
     def handle_movement(self, dt):
         key = pg.key.get_pressed()

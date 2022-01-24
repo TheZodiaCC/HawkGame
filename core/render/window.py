@@ -23,17 +23,11 @@ class Window:
 
         self.window.blit(text, position)
 
-    def render_pointer(self):
-        x, y = pg.mouse.get_pos()
-
-        pg.draw.circle(self.window, (255, 255, 255), (x, y), 10, 1)
-
     def update(self):
         self.window.fill((0, 0, 0))
 
         self.update_ui()
         self.handle_entities()
-        # self.render_pointer()
 
         pg.display.update()
 
@@ -45,13 +39,16 @@ class Window:
             self.render_entity(entity)
 
     def render_entity(self, entity):
-        model = pg.transform.rotate(entity.model, entity.orientation_diff)
+        rotated_model = pg.transform.rotate(entity.model, entity.orientation_diff)
 
-        pos = [entity.get_position()[0] - model.get_width() / 2, entity.get_position()[1] - model.get_height() / 2]
+        pos = [entity.get_position()[0] - rotated_model.get_width() / 2,
+               entity.get_position()[1] - rotated_model.get_height() / 2]
 
-        self.window.blit(model, pos)
+        self.window.blit(rotated_model, pos)
 
-        # Debug
+        self.draw_entity_debug(entity)
+
+    def draw_entity_debug(self, entity):
         pos = entity.get_position()
 
         pg.draw.circle(self.window, (255, 0, 0), pos, 2, 2)

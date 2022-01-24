@@ -11,7 +11,6 @@ class Player(EntityBase):
         self.model = None
         self.rect = None
         self.position = [0, 0]
-        self.img_pos = [0, 0]
 
         self.init_player_model()
 
@@ -23,8 +22,7 @@ class Player(EntityBase):
 
         self.rect = self.model.get_rect()
 
-        self.position = [0, 0]
-        self.img_pos = [self.position[0] - self.model.get_width() / 2, self.position[1] - self.model.get_height() / 2]
+        self.position = [self.position[0] - self.model.get_width() / 2, self.position[1] - self.model.get_height() / 2]
 
     def get_position(self):
         return self.position

@@ -19,13 +19,16 @@ class PlayerController:
         key = pg.key.get_pressed()
 
         if key[pg.K_LEFT]:
-            self.player.rect.x -= 500 * dt
+            self.player.position[0] -= 500 * dt
 
         if key[pg.K_RIGHT]:
-            self.player.rect.x += 500 * dt
+            self.player.position[0] += 500 * dt
 
         if key[pg.K_UP]:
-            self.player.rect.y -= 500 * dt
+            self.player.position[1] -= 500 * dt
 
         if key[pg.K_DOWN]:
-            self.player.rect.y += 500 * dt
+            self.player.position[1] += 500 * dt
+
+        # self.player.img_pos = [self.player.position[0] - self.player.model.get_width() / 2,
+        #                        self.player.position[1] - self.player.model.get_height() / 2]

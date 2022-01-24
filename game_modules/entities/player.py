@@ -10,6 +10,8 @@ class Player(EntityBase):
 
         self.model = None
         self.rect = None
+        self.position = [0, 0]
+        self.img_pos = [0, 0]
 
         self.init_player_model()
 
@@ -21,8 +23,11 @@ class Player(EntityBase):
 
         self.rect = self.model.get_rect()
 
+        self.position = [0, 0]
+        self.img_pos = [self.position[0] - self.model.get_width() / 2, self.position[1] - self.model.get_height() / 2]
+
     def get_position(self):
-        return [self.model.get_rect().centerx, self.model.get_rect().centery]
+        return self.position
 
     def set_orientation(self, dest_vector):
         self.orientation_diff = vectors_utils.get_degrees_between_vectors(dest_vector, self.get_position())

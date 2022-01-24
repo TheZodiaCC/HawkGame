@@ -1,5 +1,6 @@
 import pygame as pg
 from core.consts import WindowConsts
+from core.utils import screen_utils, vectors_utils
 
 
 class Window:
@@ -43,8 +44,18 @@ class Window:
         for entity in self.game.entities:
             self.render_entity(entity)
 
+    def handle_entity_rotation(self, entity):
+        converted_target_point_cords = screen_utils.convert_point_to_different_resolution(
+            [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], entity.get_orientation_target_point())
+
+        orientation_diff = vectors_utils.get_degrees_between_vectors(converted_target_point_cords, entity.get_position())
+
+        rotated_model = pg.transform.rotate(entity.render_object.model, orientation_diff)
+
+        return rotated_model
+
     def render_entity(self, entity):
-        rotated_model = pg.transform.rotate(entity.render_object.model, entity.orientation_diff)
+        rotated_model = self.handle_entity_rotation(entity)
 
         pos = [entity.get_position()[0] - rotated_model.get_width() / 2,
                entity.get_position()[1] - rotated_model.get_height() / 2]

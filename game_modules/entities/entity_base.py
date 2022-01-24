@@ -1,15 +1,15 @@
-from core.utils import vectors_utils
-
-
 class EntityBase:
     def __init__(self):
         self.render_object = None
         self.position = [0, 0]
 
-        self.orientation_diff = 0
+        self.orientation_target_point = [0, 0]
 
     def get_position(self):
         return self.position
 
-    def set_orientation(self, dest_vector):
-        self.orientation_diff = vectors_utils.get_degrees_between_vectors(dest_vector, self.get_position())
+    def get_orientation_target_point(self):
+        return self.orientation_target_point
+
+    def set_orientation_target_point(self, dest_vector):
+        self.orientation_target_point = dest_vector

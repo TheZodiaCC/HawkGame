@@ -27,3 +27,5 @@ class PlayerController:
 
         if key[pg.K_DOWN]:
             self.player.position[1] += 200 * dt
+
+        self.player.render_object.position = self.player.position

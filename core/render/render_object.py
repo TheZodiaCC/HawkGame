@@ -2,7 +2,10 @@ import pygame as pg
 
 
 class RenderObject:
-    def __init__(self, model_path, model_size):
+    def __init__(self, model_path, model_size, freezed=False, origin=None):
+        self.freezed = freezed
+        self.origin = origin
+
         self.position = [0, 0]
         self.model = None
         self.rect = None

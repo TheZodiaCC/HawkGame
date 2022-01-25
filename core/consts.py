@@ -10,4 +10,4 @@ class WindowConsts:
 
 
 class GameConsts:
-    FPS_LIMIT = 120
+    FPS_LIMIT = 60

@@ -74,3 +74,5 @@ class Window:
 
     def render_debug_info(self):
         self.render_text((255, 255, 255), (0, 0), 30, f"FPS: {int(self.game.clock.get_fps())}")
+        self.render_text((255, 255, 255), (0, 30), 30, f"Player Pos: {self.game.player.get_position()}")
+        self.render_text((255, 255, 255), (0, 60), 30, f"Player Pos: {self.game.player.get_position()}")

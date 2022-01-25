@@ -1,4 +1,5 @@
 import pygame as pg
+from core.utils import path_utils
 
 
 class RenderObject:
@@ -16,7 +17,7 @@ class RenderObject:
         self.init_model()
 
     def init_model(self):
-        self.model = pg.image.load(self.model_path)
+        self.model = pg.image.load(path_utils.get_abs_path(self.model_path))
         self.model = pg.transform.scale(self.model, self.model_size)
 
         self.rect = self.model.get_rect()

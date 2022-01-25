@@ -73,6 +73,16 @@ class Window:
         pg.draw.circle(self.frame, (255, 0, 0), pos, 10, 2)
 
     def render_debug_info(self):
-        self.render_text((255, 255, 255), (0, 0), 30, f"FPS: {int(self.game.clock.get_fps())}")
-        self.render_text((255, 255, 255), (0, 30), 30, f"Player Pos: {self.game.player.get_position()}")
-        self.render_text((255, 255, 255), (0, 60), 30, f"Player Pos: {self.game.player.get_position()}")
+        debug_data = [
+            f"FPS: {int(self.game.clock.get_fps())}",
+            f"Player Pos: {self.game.player.get_position()}",
+            f"Player Orientation Point: {self.game.player.get_orientation_target_point()}"
+        ]
+
+        next_data_y = 0
+        font_size = 30
+
+        for data in debug_data:
+            self.render_text((255, 255, 255), (0, next_data_y), font_size, data)
+
+            next_data_y += font_size

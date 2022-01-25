@@ -48,7 +48,7 @@ class Window:
         converted_target_point_cords = screen_utils.convert_point_to_different_resolution(
             [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], entity.get_orientation_target_point())
 
-        orientation_diff = vectors_utils.get_degrees_between_vectors(converted_target_point_cords, entity.get_position())
+        orientation_diff = vectors_utils.get_degrees_between_vectors(converted_target_point_cords, entity.render_object.position)
 
         rotated_model = pg.transform.rotate(entity.render_object.model, orientation_diff)
 

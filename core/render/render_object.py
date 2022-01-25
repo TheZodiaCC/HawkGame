@@ -21,5 +21,8 @@ class RenderObject:
 
         self.rect = self.model.get_rect()
 
+        if self.freezed:
+            self.position = self.origin
+
         self.position = [self.position[0] - self.model.get_width() / 2,
                          self.position[1] - self.model.get_height() / 2]

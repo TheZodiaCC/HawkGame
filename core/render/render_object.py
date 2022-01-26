@@ -29,6 +29,8 @@ class RenderObject:
 
         self.position = [self.position[0], self.position[1]]
 
+        self.rect.center = self.position
+
     def handle_entity_rotation(self):
         rotated_model = self.model
 
@@ -53,5 +55,7 @@ class RenderObject:
                                                                                          camera_position)
 
             self.position = transformed_position
+
+        self.rect.center = self.position
 
         return transformed_position, rotated_model

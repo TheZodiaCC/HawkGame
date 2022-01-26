@@ -60,6 +60,8 @@ class Window:
         pg.draw.circle(self.frame, (255, 0, 0), pos, 2, 2)
         pg.draw.circle(self.frame, (255, 0, 0), pos, 10, 2)
 
+        pg.draw.rect(self.frame, (255, 255, 0), entity.render_object.rect, 2, 2)
+
     def render_debug_info(self):
         debug_data = [
             f"FPS: {int(self.game.clock.get_fps())}",

@@ -1,6 +1,6 @@
 import pygame as pg
 from core.consts import WindowConsts
-from core.utils import screen_utils, vectors_utils
+from core.utils import screen_utils
 
 
 class Window:
@@ -44,28 +44,11 @@ class Window:
         for entity in self.game.objects_manager.game_objects:
             self.render_entity(entity)
 
-    def handle_entity_rotation(self, entity):
-        converted_target_point_cords = screen_utils.convert_point_to_different_resolution(
-            [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], entity.get_orientation_target_point())
-
-        orientation_diff = vectors_utils.get_degrees_between_vectors(converted_target_point_cords, entity.render_object.position)
-
-        rotated_model = pg.transform.rotate(entity.render_object.model, orientation_diff)
-
-        return rotated_model
-
     def render_entity(self, entity):
-        if screen_utils.check_object_visibility(entity.get_position(), self.game.objects_manager.player.get_position()):
-            rotated_model = self.handle_entity_rotation(entity)
+        camera_position = self.game.objects_manager.player.get_position()
 
-            entity_render_object = entity.render_object
-
-            transformed_position = [entity_render_object.position[0] - rotated_model.get_width() / 2,
-                                    entity_render_object.position[1] - rotated_model.get_height() / 2]
-
-            if not entity_render_object.freezed:
-                transformed_position = screen_utils.convert_game_position_to_screen_position(entity.get_position(),
-                                                                                             self.game.objects_manager.player.get_position())
+        if screen_utils.check_object_visibility(entity.get_position(), camera_position):
+            transformed_position, rotated_model = entity.render_object.calculate_render_position(camera_position)
 
             self.frame.blit(rotated_model, transformed_position)
 

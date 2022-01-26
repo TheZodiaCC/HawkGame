@@ -1,4 +1,4 @@
-from core.consts import WindowConsts, GameConsts, WorldConsts
+from core.consts import WindowConsts, GameConsts
 
 
 def convert_point_to_different_resolution(current_resolution, cords):

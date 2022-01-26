@@ -30,12 +30,15 @@ class RenderObject:
         self.position = [self.position[0], self.position[1]]
 
     def handle_entity_rotation(self):
-        converted_target_point_cords = screen_utils.convert_point_to_different_resolution(
-            [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], self.entity.get_orientation_target_point())
+        rotated_model = self.model
 
-        orientation_diff = vectors_utils.get_degrees_between_vectors(converted_target_point_cords, self.entity.render_object.position)
+        if self.entity.get_orientation_target_point():
+            converted_target_point_cords = screen_utils.convert_point_to_different_resolution(
+                [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], self.entity.get_orientation_target_point())
 
-        rotated_model = pg.transform.rotate(self.entity.render_object.model, orientation_diff)
+            orientation_diff = vectors_utils.get_degrees_between_vectors(converted_target_point_cords, self.entity.render_object.position)
+
+            rotated_model = pg.transform.rotate(self.entity.render_object.model, orientation_diff)
 
         return rotated_model
 
@@ -48,5 +51,7 @@ class RenderObject:
         if not self.freezed:
             transformed_position = screen_utils.convert_game_position_to_screen_position(self.entity.get_position(),
                                                                                          camera_position)
+
+            self.position = transformed_position
 
         return transformed_position, rotated_model

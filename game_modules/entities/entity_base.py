@@ -1,9 +1,9 @@
 class EntityBase:
     def __init__(self):
-        self.render_object = None
         self.position = [0, 0]
+        self.orientation_target_point = None
 
-        self.orientation_target_point = [0, 0]
+        self.render_object = None
 
     def get_position(self):
         return self.position

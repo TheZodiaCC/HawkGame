@@ -55,6 +55,8 @@ class RenderObject:
                                                                                          camera_position)
 
             self.position = transformed_position
+            # self.position[0] = self.position[0] + rotated_model.get_width() / 2
+            # self.position[0] = self.position[0] + rotated_model.get_width() / 2
 
         self.rect.center = self.position
 

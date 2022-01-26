@@ -1,10 +1,9 @@
 import pygame as pg
 import time
 from core.consts import WindowConsts, GameConsts
+from core.objects_manager import ObjectsManager
 from core.render.window import Window
-from game_modules.entities.player import Player
 from game_modules.entities.test_sphere import TestSphere
-from game_modules.controllers.player_controller import PlayerController
 
 
 class Game:
@@ -15,15 +14,13 @@ class Game:
         self.clock = pg.time.Clock()
         self.delta_time = 0
 
-        self.player = Player()
-        self.player_controller = PlayerController(self.player)
-
-        self.test_sphere = TestSphere()
-
-        self.entities = [self.player, self.test_sphere]
+        self.objects_manager = ObjectsManager()
+        self.objects_manager.add_game_object(TestSphere())
 
     def init(self):
         pg.init()
+
+        self.objects_manager.init_player()
         self.window.init()
 
         self.is_running = True
@@ -37,7 +34,7 @@ class Game:
             prev_time = self.calculate_delta_time(prev_time)
             self.handle_events(pg.event.get())
 
-            self.player_controller.update(self.delta_time)
+            self.objects_manager.player_controller.update(self.delta_time)
 
             self.window.update()
 

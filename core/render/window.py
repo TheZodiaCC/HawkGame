@@ -42,7 +42,7 @@ class Window:
         self.render_debug_info()
 
     def handle_entities(self):
-        for entity in self.game.entities:
+        for entity in self.game.objects_manager.game_objects:
             self.render_entity(entity)
 
     def handle_entity_rotation(self, entity):
@@ -56,7 +56,7 @@ class Window:
         return rotated_model
 
     def render_entity(self, entity):
-        if screen_utils.check_object_visibility(entity.get_position(), self.game.player.get_position()):
+        if screen_utils.check_object_visibility(entity.get_position(), self.game.objects_manager.player.get_position()):
             rotated_model = self.handle_entity_rotation(entity)
 
             entity_render_object = entity.render_object
@@ -66,7 +66,7 @@ class Window:
 
             if not entity_render_object.freezed:
                 transformed_position = screen_utils.convert_game_position_to_screen_position(transformed_position,
-                                                                                             self.game.player.get_position(),
+                                                                                             self.game.objects_manager.player.get_position(),
                                                                                              entity_render_object)
 
             self.frame.blit(rotated_model, transformed_position)
@@ -82,8 +82,8 @@ class Window:
     def render_debug_info(self):
         debug_data = [
             f"FPS: {int(self.game.clock.get_fps())}",
-            f"Player Pos: {self.game.player.get_position()}",
-            f"Player Orientation Point: {self.game.player.get_orientation_target_point()}"
+            f"Player Pos: {self.game.objects_manager.player.get_position()}",
+            f"Player Orientation Point: {self.game.objects_manager.player.get_orientation_target_point()}"
         ]
 
         next_data_y = 0

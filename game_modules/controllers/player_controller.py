@@ -1,4 +1,5 @@
 import pygame as pg
+from game_modules.entities.consts import PlayerConsts
 
 
 class PlayerController:
@@ -17,13 +18,13 @@ class PlayerController:
         key = pg.key.get_pressed()
 
         if key[pg.K_LEFT]:
-            self.player.position[0] -= 50 * dt
+            self.player.position[0] -= PlayerConsts.PLAYER_MOVEMENT_SPEED * dt
 
         if key[pg.K_RIGHT]:
-            self.player.position[0] += 50 * dt
+            self.player.position[0] += PlayerConsts.PLAYER_MOVEMENT_SPEED * dt
 
         if key[pg.K_UP]:
-            self.player.position[1] -= 50 * dt
+            self.player.position[1] -= PlayerConsts.PLAYER_MOVEMENT_SPEED * dt
 
         if key[pg.K_DOWN]:
-            self.player.position[1] += 50 * dt
+            self.player.position[1] += PlayerConsts.PLAYER_MOVEMENT_SPEED * dt

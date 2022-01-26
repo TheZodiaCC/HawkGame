@@ -1,7 +1,6 @@
 import pygame as pg
 from core.consts import WindowConsts
 from core.utils import screen_utils, vectors_utils
-from game_modules.entities.player import Player
 
 
 class Window:
@@ -66,8 +65,7 @@ class Window:
 
             if not entity_render_object.freezed:
                 transformed_position = screen_utils.convert_game_position_to_screen_position(entity.get_position(),
-                                                                                             self.game.objects_manager.player.get_position(),
-                                                                                             entity_render_object)
+                                                                                             self.game.objects_manager.player.get_position())
 
             self.frame.blit(rotated_model, transformed_position)
 

@@ -39,7 +39,7 @@ def check_object_visibility(object_position, camera_position):
     return visible
 
 
-def convert_game_position_to_screen_position(object_position, camera_position, objects_render_object):
+def convert_game_position_to_screen_position(object_position, camera_position):
     camera_width = GameConsts.CAMERA_RESOLUTION_WIDTH
     camera_height = GameConsts.CAMERA_RESOLUTION_HEIGHT
 
@@ -52,11 +52,6 @@ def convert_game_position_to_screen_position(object_position, camera_position, o
     camera_y_min = camera_position[1] - camera_height / 2
     camera_x_max = camera_position[0] + camera_width / 2
     camera_y_max = camera_position[1] + camera_height / 2
-
-    # converted_position[0] = linear_conversion(WorldConsts.WORLD_SIZE_X_MAX, WorldConsts.WORLD_SIZE_X_MIN, camera_x_max,
-    #                                           camera_x_min, object_x)
-    # converted_position[1] = linear_conversion(WorldConsts.WORLD_SIZE_Y_MAX, WorldConsts.WORLD_SIZE_Y_MIN, camera_y_max,
-    #                                           camera_y_min, object_y)
 
     converted_position[0] = linear_conversion(camera_x_max, camera_x_min, WindowConsts.DESIGN_SCREEN_WIDTH,
                                               0, converted_position[0])

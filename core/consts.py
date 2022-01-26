@@ -11,3 +11,13 @@ class WindowConsts:
 
 class GameConsts:
     FPS_LIMIT = 60
+
+    CAMERA_RESOLUTION_WIDTH = 20
+    CAMERA_RESOLUTION_HEIGHT = 20
+
+
+class WorldConsts:
+    WORLD_SIZE_X_MIN = 0
+    WORLD_SIZE_X_MAX = 100
+    WORLD_SIZE_Y_MIN = 0
+    WORLD_SIZE_Y_MAX = 100

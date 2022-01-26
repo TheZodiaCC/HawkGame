@@ -3,6 +3,7 @@ import time
 from core.consts import WindowConsts, GameConsts
 from core.render.window import Window
 from game_modules.entities.player import Player
+from game_modules.entities.test_sphere import TestSphere
 from game_modules.controllers.player_controller import PlayerController
 
 
@@ -17,7 +18,9 @@ class Game:
         self.player = Player()
         self.player_controller = PlayerController(self.player)
 
-        self.entities = [self.player]
+        self.test_sphere = TestSphere()
+
+        self.entities = [self.player, self.test_sphere]
 
     def init(self):
         pg.init()

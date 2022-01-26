@@ -1,6 +1,7 @@
 import pygame as pg
 from core.consts import WindowConsts
 from core.utils import screen_utils, vectors_utils
+from game_modules.entities.player import Player
 
 
 class Window:
@@ -29,8 +30,8 @@ class Window:
     def update(self):
         self.frame.fill((0, 0, 0))
 
-        self.update_ui()
         self.handle_entities()
+        self.update_ui()
 
         frame = pg.transform.scale(self.frame, (self.screen_width, self.screen_height))
         self.window.blit(frame, frame.get_rect())
@@ -55,16 +56,22 @@ class Window:
         return rotated_model
 
     def render_entity(self, entity):
-        rotated_model = self.handle_entity_rotation(entity)
+        if screen_utils.check_object_visibility(entity.get_position(), self.game.player.get_position()):
+            rotated_model = self.handle_entity_rotation(entity)
 
-        entity_render_object = entity.render_object
+            entity_render_object = entity.render_object
 
-        transformed_position = [entity_render_object.position[0] - rotated_model.get_width() / 2,
-                                entity_render_object.position[1] - rotated_model.get_height() / 2]
+            transformed_position = [entity_render_object.position[0] - rotated_model.get_width() / 2,
+                                    entity_render_object.position[1] - rotated_model.get_height() / 2]
 
-        self.frame.blit(rotated_model, transformed_position)
+            if not entity_render_object.freezed:
+                transformed_position = screen_utils.convert_game_position_to_screen_position(transformed_position,
+                                                                                             self.game.player.get_position(),
+                                                                                             entity_render_object)
 
-        self.draw_entity_debug(entity)
+            self.frame.blit(rotated_model, transformed_position)
+
+            self.draw_entity_debug(entity)
 
     def draw_entity_debug(self, entity):
         pos = entity.render_object.position

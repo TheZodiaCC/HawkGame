@@ -65,7 +65,7 @@ class Window:
                                     entity_render_object.position[1] - rotated_model.get_height() / 2]
 
             if not entity_render_object.freezed:
-                transformed_position = screen_utils.convert_game_position_to_screen_position(transformed_position,
+                transformed_position = screen_utils.convert_game_position_to_screen_position(entity.get_position(),
                                                                                              self.game.objects_manager.player.get_position(),
                                                                                              entity_render_object)
 
@@ -83,6 +83,7 @@ class Window:
         debug_data = [
             f"FPS: {int(self.game.clock.get_fps())}",
             f"Player Pos: {self.game.objects_manager.player.get_position()}",
+            f"Player Model Pos: {self.game.objects_manager.player.render_object.position}",
             f"Player Orientation Point: {self.game.objects_manager.player.get_orientation_target_point()}"
         ]
 

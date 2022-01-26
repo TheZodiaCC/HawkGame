@@ -53,8 +53,15 @@ def convert_game_position_to_screen_position(object_position, camera_position, o
     camera_x_max = camera_position[0] + camera_width / 2
     camera_y_max = camera_position[1] + camera_height / 2
 
-    converted_position[0] = linear_conversion(WorldConsts.WORLD_SIZE_X_MAX, WorldConsts.WORLD_SIZE_X_MIN, WindowConsts.SCREEN_WIDTH, 0, object_x)
-    converted_position[1] = linear_conversion(WorldConsts.WORLD_SIZE_Y_MAX, WorldConsts.WORLD_SIZE_Y_MIN, WindowConsts.SCREEN_HEIGHT, 0, object_y)
+    # converted_position[0] = linear_conversion(WorldConsts.WORLD_SIZE_X_MAX, WorldConsts.WORLD_SIZE_X_MIN, camera_x_max,
+    #                                           camera_x_min, object_x)
+    # converted_position[1] = linear_conversion(WorldConsts.WORLD_SIZE_Y_MAX, WorldConsts.WORLD_SIZE_Y_MIN, camera_y_max,
+    #                                           camera_y_min, object_y)
+
+    converted_position[0] = linear_conversion(camera_x_max, camera_x_min, WindowConsts.DESIGN_SCREEN_WIDTH,
+                                              0, converted_position[0])
+    converted_position[1] = linear_conversion(camera_y_max, camera_y_min, WindowConsts.DESIGN_SCREEN_HEIGHT,
+                                              0, converted_position[1])
 
     return converted_position
 

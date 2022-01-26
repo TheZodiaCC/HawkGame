@@ -9,4 +9,4 @@ class TestSphere(EntityBase):
 
         self.render_object = RenderObject(PlayerConsts.PLAYER_MODEL_PATH, PlayerConsts.PLAYER_MODEL_SIZE, False,
                                           (100, 100))
-        self.position = [20, 20]
+        self.position = [6000, 5500]

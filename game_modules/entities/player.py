@@ -9,4 +9,4 @@ class Player(EntityBase):
 
         self.render_object = RenderObject(PlayerConsts.PLAYER_MODEL_PATH, PlayerConsts.PLAYER_MODEL_SIZE, True,
                                           PlayerConsts.PLAYER_MODEL_ORIGIN_POINT)
-        self.position = [0, 0]
+        self.position = [5000, 5000]

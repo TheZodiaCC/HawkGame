@@ -14,13 +14,15 @@ class Game:
         self.clock = pg.time.Clock()
         self.delta_time = 0
 
-        self.objects_manager = ObjectsManager()
-        self.objects_manager.add_game_object(TestSphere())
+        self.objects_manager = None
 
     def init(self):
         pg.init()
 
+        self.objects_manager = ObjectsManager()
+        self.objects_manager.add_game_object(TestSphere())
         self.objects_manager.init_player()
+
         self.window.init()
 
         self.is_running = True

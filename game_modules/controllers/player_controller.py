@@ -6,6 +6,8 @@ class PlayerController:
     def __init__(self, player):
         self.player = player
 
+        self.player_speed = PlayerConsts.PLAYER_MOVEMENT_SPEED
+
     def update(self, dt):
         self.handle_rotation()
         self.handle_movement(dt)
@@ -18,13 +20,13 @@ class PlayerController:
         key = pg.key.get_pressed()
 
         if key[pg.K_LEFT]:
-            self.player.position[0] -= PlayerConsts.PLAYER_MOVEMENT_SPEED * dt
+            self.player.position[0] -= self.player_speed * dt
 
         if key[pg.K_RIGHT]:
-            self.player.position[0] += PlayerConsts.PLAYER_MOVEMENT_SPEED * dt
+            self.player.position[0] += self.player_speed * dt
 
         if key[pg.K_UP]:
-            self.player.position[1] -= PlayerConsts.PLAYER_MOVEMENT_SPEED * dt
+            self.player.position[1] -= self.player_speed * dt
 
         if key[pg.K_DOWN]:
-            self.player.position[1] += PlayerConsts.PLAYER_MOVEMENT_SPEED * dt
+            self.player.position[1] += self.player_speed * dt

@@ -1,4 +1,4 @@
-from core.consts import WindowConsts, GameConsts
+from core.consts import WindowConsts, GameConsts, WorldConsts
 
 
 def convert_point_to_different_resolution(current_resolution, cords):
@@ -47,15 +47,15 @@ def convert_game_position_to_screen_position(object, camera_position):
     camera_width = GameConsts.CAMERA_RESOLUTION_WIDTH
     camera_height = GameConsts.CAMERA_RESOLUTION_HEIGHT
 
-    object_x = object.position[0]
-    object_y = object.position[1]
+    object_x_pixels_position = object.position[0] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR
+    object_y_pixels_position = object.position[1] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR
 
-    converted_position = [object_x, object_y]
+    converted_position = [object_x_pixels_position, object_y_pixels_position]
 
-    camera_x_min = camera_position[0] - camera_width / 2
-    camera_y_min = camera_position[1] - camera_height / 2
-    camera_x_max = camera_position[0] + camera_width / 2
-    camera_y_max = camera_position[1] + camera_height / 2
+    camera_x_min = camera_position[0] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR - camera_width / 2
+    camera_y_min = camera_position[1] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR - camera_height / 2
+    camera_x_max = camera_position[0] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR + camera_width / 2
+    camera_y_max = camera_position[1] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR + camera_height / 2
 
     converted_position[0] = linear_conversion(camera_x_max, camera_x_min, WindowConsts.DESIGN_SCREEN_WIDTH,
                                               0, converted_position[0])

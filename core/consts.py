@@ -17,7 +17,9 @@ class GameConsts:
 
 
 class WorldConsts:
+    WORLD_SIZE_TO_PIXELS_FACTOR = 50
+
     WORLD_SIZE_X_MIN = 0
-    WORLD_SIZE_X_MAX = 10000
+    WORLD_SIZE_X_MAX = 1000
     WORLD_SIZE_Y_MIN = 0
-    WORLD_SIZE_Y_MAX = 10000
+    WORLD_SIZE_Y_MAX = 1000

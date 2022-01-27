@@ -7,6 +7,6 @@ class Player(EntityBase):
     def __init__(self):
         super().__init__()
 
-        self.position = [5000, 5000]
+        self.position = [500, 500]
         self.render_object = RenderObject(self, PlayerConsts.PLAYER_MODEL_PATH, PlayerConsts.PLAYER_MODEL_SIZE, True,
                                           PlayerConsts.PLAYER_MODEL_ORIGIN_POINT)

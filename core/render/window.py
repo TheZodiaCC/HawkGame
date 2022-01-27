@@ -47,7 +47,7 @@ class Window:
     def render_entity(self, entity):
         camera_position = self.game.objects_manager.player.get_position()
 
-        if screen_utils.check_object_visibility(entity.get_position(), camera_position):
+        if screen_utils.check_object_visibility(entity, camera_position):
             transformed_position, rotated_model = entity.render_object.calculate_render_position(camera_position)
 
             self.frame.blit(rotated_model, transformed_position)
@@ -56,9 +56,17 @@ class Window:
 
     def draw_entity_debug(self, entity):
         pos = entity.render_object.position
+        screen_pos = screen_utils.convert_game_position_to_screen_position(entity, self.game.objects_manager.player.get_position())
+
+        if not entity.render_object.freezed:
+            screen_pos[0] += entity.render_object.model_size[0] / 2
+            screen_pos[1] += entity.render_object.model_size[1] / 2
 
         pg.draw.circle(self.frame, (255, 0, 0), pos, 2, 2)
         pg.draw.circle(self.frame, (255, 0, 0), pos, 10, 2)
+
+        pg.draw.circle(self.frame, (0, 255, 0), [screen_pos[0], screen_pos[1]], 10, 2)
+        pg.draw.circle(self.frame, (0, 255, 0), [screen_pos[0], screen_pos[1]], 10, 2)
 
         pg.draw.rect(self.frame, (255, 255, 0), entity.render_object.rect, 2, 2)
 

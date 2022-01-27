@@ -19,14 +19,14 @@ def linear_conversion(old_max, old_min, new_max, new_min, old_value):
     return new_value
 
 
-def check_object_visibility(object_position, camera_position):
+def check_object_visibility(object, camera_position):
     visible = False
 
     camera_width = GameConsts.CAMERA_RESOLUTION_WIDTH
     camera_height = GameConsts.CAMERA_RESOLUTION_HEIGHT
 
-    object_x = object_position[0]
-    object_y = object_position[1]
+    object_x = object.position[0] + object.render_object.model_size[0] / 2
+    object_y = object.position[1] + object.render_object.model_size[0] / 2
 
     camera_x_min = camera_position[0] - camera_width / 2
     camera_y_min = camera_position[1] - camera_height / 2
@@ -39,12 +39,12 @@ def check_object_visibility(object_position, camera_position):
     return visible
 
 
-def convert_game_position_to_screen_position(object_position, camera_position):
+def convert_game_position_to_screen_position(object, camera_position):
     camera_width = GameConsts.CAMERA_RESOLUTION_WIDTH
     camera_height = GameConsts.CAMERA_RESOLUTION_HEIGHT
 
-    object_x = object_position[0]
-    object_y = object_position[1]
+    object_x = object.position[0]
+    object_y = object.position[1]
 
     converted_position = [object_x, object_y]
 

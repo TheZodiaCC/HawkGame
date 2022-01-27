@@ -51,12 +51,10 @@ class RenderObject:
                                 self.position[1] - rotated_model.get_height() / 2]
 
         if not self.freezed:
-            transformed_position = screen_utils.convert_game_position_to_screen_position(self.entity.get_position(),
-                                                                                         camera_position)
+            transformed_position = screen_utils.convert_game_position_to_screen_position(self.entity, camera_position)
 
-            self.position = transformed_position
-            # self.position[0] = self.position[0] + rotated_model.get_width() / 2
-            # self.position[0] = self.position[0] + rotated_model.get_width() / 2
+            self.position = [transformed_position[0] + rotated_model.get_width() / 2,
+                             transformed_position[1] + rotated_model.get_width() / 2]
 
         self.rect.center = self.position
 

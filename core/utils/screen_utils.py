@@ -25,15 +25,19 @@ def check_object_visibility(object, camera_position):
     camera_width = GameConsts.CAMERA_RESOLUTION_WIDTH
     camera_height = GameConsts.CAMERA_RESOLUTION_HEIGHT
 
-    object_x = object.position[0] + object.render_object.model_size[0] / 2
-    object_y = object.position[1] + object.render_object.model_size[0] / 2
+    object_x_min = object.position[0]
+    object_y_min = object.position[1]
+    object_x_max = object.position[0] + object.render_object.model_size[0]
+    object_y_max = object.position[1] + object.render_object.model_size[0]
 
     camera_x_min = camera_position[0] - camera_width / 2
     camera_y_min = camera_position[1] - camera_height / 2
     camera_x_max = camera_position[0] + camera_width / 2
     camera_y_max = camera_position[1] + camera_height / 2
 
-    if camera_x_max >= object_x >= camera_x_min and camera_y_max >= object_y >= camera_y_min:
+    if camera_x_max >= object_x_min >= camera_x_min and camera_y_max >= object_y_min >= camera_y_min or \
+            camera_x_max >= object_x_max >= camera_x_min and camera_y_max >= object_y_max >= camera_y_min:
+
         visible = True
 
     return visible

@@ -3,7 +3,6 @@ import time
 from core.consts import WindowConsts, GameConsts
 from core.objects_manager import ObjectsManager
 from core.render.window import Window
-from game_modules.entities.test_sphere import TestSphere
 from core.modules.camera import Camera
 from game_modules.controllers.player_controller import PlayerController
 
@@ -25,7 +24,8 @@ class Game:
         pg.init()
 
         self.objects_manager = ObjectsManager()
-        self.objects_manager.add_game_object(TestSphere())
+        self.objects_manager.add_debug_object()
+
         self.objects_manager.init_player()
 
         self.player_controller = PlayerController(self)

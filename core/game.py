@@ -29,7 +29,8 @@ class Game:
         self.objects_manager.init_player()
 
         self.player_controller = PlayerController(self)
-        self.camera.position = self.objects_manager.player.get_position()
+
+        self.camera.position = self.objects_manager.player.get_position()[:]
 
         self.window.init()
 
@@ -54,6 +55,9 @@ class Game:
         for event in events:
             if event.type == pg.QUIT:
                 self.is_running = False
+
+            elif event.type == pg.KEYUP:
+                self.player_controller.handle_keys(event.key)
 
     def calculate_delta_time(self, prev_time):
         now = time.time()

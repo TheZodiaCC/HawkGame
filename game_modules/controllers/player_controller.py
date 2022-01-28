@@ -9,6 +9,9 @@ class PlayerController:
         self.player = self.game.objects_manager.player
         self.player_speed = PlayerConsts.PLAYER_MOVEMENT_SPEED
 
+        self.freecam = False
+        self.move_object = self.player
+
     def update(self, dt):
         self.handle_rotation()
         self.handle_movement(dt)
@@ -17,21 +20,32 @@ class PlayerController:
         if pg.mouse.get_focused():
             self.player.set_orientation_target_point(pg.mouse.get_pos())
 
+    def switch_freecam(self):
+        self.freecam = not self.freecam
+
+        if self.freecam:
+            self.move_object = self.game.camera
+
+        else:
+            self.move_object = self.player
+
+    def handle_keys(self, key):
+        if key == pg.K_f:
+            self.switch_freecam()
+
     def handle_movement(self, dt):
         key = pg.key.get_pressed()
 
-        move_entity = self.player
-
         if key[pg.K_LEFT]:
-            move_entity.position[0] -= self.player_speed * dt
+            self.move_object.position[0] -= self.player_speed * dt
 
         if key[pg.K_RIGHT]:
-            move_entity.position[0] += self.player_speed * dt
+            self.move_object.position[0] += self.player_speed * dt
 
         if key[pg.K_UP]:
-            move_entity.position[1] -= self.player_speed * dt
+            self.move_object.position[1] -= self.player_speed * dt
 
         if key[pg.K_DOWN]:
-            move_entity.position[1] += self.player_speed * dt
+            self.move_object.position[1] += self.player_speed * dt
 
-        self.game.camera.position = move_entity.position
+        self.game.camera.position = self.move_object.position[:]

@@ -10,7 +10,7 @@ class WindowConsts:
 
 
 class GameConsts:
-    FPS_LIMIT = 60
+    FPS_LIMIT = 500
 
     CAMERA_RESOLUTION_WIDTH = WindowConsts.DESIGN_SCREEN_WIDTH
     CAMERA_RESOLUTION_HEIGHT = WindowConsts.DESIGN_SCREEN_HEIGHT

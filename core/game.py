@@ -4,6 +4,8 @@ from core.consts import WindowConsts, GameConsts
 from core.objects_manager import ObjectsManager
 from core.render.window import Window
 from game_modules.entities.test_sphere import TestSphere
+from core.modules.camera import Camera
+from game_modules.controllers.player_controller import PlayerController
 
 
 class Game:
@@ -15,6 +17,9 @@ class Game:
         self.delta_time = 0
 
         self.objects_manager = None
+        self.camera = Camera()
+
+        self.player_controller = None
 
     def init(self):
         pg.init()
@@ -22,6 +27,9 @@ class Game:
         self.objects_manager = ObjectsManager()
         self.objects_manager.add_game_object(TestSphere())
         self.objects_manager.init_player()
+
+        self.player_controller = PlayerController(self)
+        self.camera.position = self.objects_manager.player.get_position()
 
         self.window.init()
 
@@ -36,7 +44,7 @@ class Game:
             prev_time = self.calculate_delta_time(prev_time)
             self.handle_events(pg.event.get())
 
-            self.objects_manager.player_controller.update(self.delta_time)
+            self.player_controller.update(self.delta_time)
 
             self.window.update()
 

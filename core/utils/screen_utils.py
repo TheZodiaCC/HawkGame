@@ -43,12 +43,12 @@ def check_object_visibility(object, camera_position):
     return visible
 
 
-def convert_game_position_to_screen_position(object, camera_position):
+def convert_game_position_to_screen_position(object_position, camera_position):
     camera_width = GameConsts.CAMERA_RESOLUTION_WIDTH
     camera_height = GameConsts.CAMERA_RESOLUTION_HEIGHT
 
-    object_x_pixels_position = object.position[0] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR
-    object_y_pixels_position = object.position[1] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR
+    object_x_pixels_position = object_position[0] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR
+    object_y_pixels_position = object_position[1] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR
 
     converted_position = [object_x_pixels_position, object_y_pixels_position]
 

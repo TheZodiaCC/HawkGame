@@ -4,10 +4,8 @@ from core.consts import WindowConsts
 
 
 class RenderObject:
-    def __init__(self, entity, model_path, model_size, freezed=False, origin=None):
+    def __init__(self, entity, model_path, model_size):
         self.entity = entity
-        self.freezed = freezed
-        self.origin = origin
 
         self.position = [0, 0]
         self.model = None
@@ -23,9 +21,6 @@ class RenderObject:
         self.model = pg.transform.scale(self.model, self.model_size)
 
         self.rect = self.model.get_rect()
-
-        if self.freezed:
-            self.position = self.origin
 
         self.position = [self.position[0], self.position[1]]
 
@@ -47,14 +42,14 @@ class RenderObject:
     def calculate_render_position(self, camera_position):
         rotated_model = self.handle_entity_rotation()
 
-        transformed_position = [self.position[0] - rotated_model.get_width() / 2,
-                                self.position[1] - rotated_model.get_height() / 2]
+        screen_position = screen_utils.convert_game_position_to_screen_position(self.entity.position,
+                                                                                     camera_position)
 
-        if not self.freezed:
-            transformed_position = screen_utils.convert_game_position_to_screen_position(self.entity, camera_position)
+        transformed_position = [screen_position[0] - rotated_model.get_width() / 2,
+                                screen_position[1] - rotated_model.get_height() / 2]
 
-            self.position = [transformed_position[0] + rotated_model.get_width() / 2,
-                             transformed_position[1] + rotated_model.get_width() / 2]
+        self.position = [transformed_position[0] + rotated_model.get_width() / 2,
+                         transformed_position[1] + rotated_model.get_width() / 2]
 
         self.rect.center = self.position
 

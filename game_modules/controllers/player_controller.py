@@ -3,9 +3,10 @@ from game_modules.entities.consts import PlayerConsts
 
 
 class PlayerController:
-    def __init__(self, player):
-        self.player = player
+    def __init__(self, game):
+        self.game = game
 
+        self.player = self.game.objects_manager.player
         self.player_speed = PlayerConsts.PLAYER_MOVEMENT_SPEED
 
     def update(self, dt):
@@ -19,14 +20,18 @@ class PlayerController:
     def handle_movement(self, dt):
         key = pg.key.get_pressed()
 
+        move_entity = self.player
+
         if key[pg.K_LEFT]:
-            self.player.position[0] -= self.player_speed * dt
+            move_entity.position[0] -= self.player_speed * dt
 
         if key[pg.K_RIGHT]:
-            self.player.position[0] += self.player_speed * dt
+            move_entity.position[0] += self.player_speed * dt
 
         if key[pg.K_UP]:
-            self.player.position[1] -= self.player_speed * dt
+            move_entity.position[1] -= self.player_speed * dt
 
         if key[pg.K_DOWN]:
-            self.player.position[1] += self.player_speed * dt
+            move_entity.position[1] += self.player_speed * dt
+
+        self.game.camera.position = move_entity.position

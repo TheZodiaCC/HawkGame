@@ -49,11 +49,14 @@ class Window:
         if self.game.is_debug_mode_on:
             self.game.debug_controller.update_debug_data()
 
-            self.render_debug_info()
+            self.game.debug_controller.render_debug_info()
 
     def handle_entities(self):
         for entity in self.game.objects_manager.game_objects:
             self.render_entity(entity)
+
+            if self.game.is_debug_mode_on:
+                self.frame = self.game.debug_controller.draw_entity_debug(entity, self.frame)
 
     def render_entity(self, entity):
         camera_position = self.game.camera.get_position()
@@ -62,32 +65,3 @@ class Window:
             transformed_position, rotated_model = entity.render_object.calculate_render_position(camera_position)
 
             self.frame.blit(rotated_model, transformed_position)
-
-            if self.game.is_debug_mode_on:
-                self.draw_entity_debug(entity)
-
-    def draw_entity_debug(self, entity):
-        pos = entity.render_object.position
-        screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.get_position())
-
-        pg.draw.circle(self.frame, (255, 0, 0), pos, 2, 2)
-        pg.draw.circle(self.frame, (255, 0, 0), pos, 10, 2)
-        pg.draw.circle(self.frame, (0, 255, 0), [screen_pos[0], screen_pos[1]], 10, 2)
-
-        pg.draw.rect(self.frame, (255, 255, 0), entity.render_object.rect, 2, 2)
-
-        target_point = entity.orientation_target_point
-
-        if target_point:
-            pg.draw.line(self.frame, (255, 255, 255), pos, target_point, 2)
-
-    def render_debug_info(self):
-        debug_data = self.game.debug_controller.get_debug_data()
-
-        next_data_y = 0
-        font_size = 30
-
-        for data in debug_data:
-            self.render_text((255, 255, 255), (0, next_data_y), font_size, data)
-
-            next_data_y += font_size

@@ -26,14 +26,17 @@ class Window:
 
         self.frame.blit(text, position)
 
+    def update_frame(self):
+        frame = pg.transform.scale(self.frame, (self.screen_width, self.screen_height))
+        self.window.blit(frame, frame.get_rect())
+
     def update(self):
         self.frame.fill((0, 0, 0))
 
         self.handle_entities()
         self.update_ui()
 
-        frame = pg.transform.scale(self.frame, (self.screen_width, self.screen_height))
-        self.window.blit(frame, frame.get_rect())
+        self.update_frame()
 
         pg.display.update()
 

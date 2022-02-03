@@ -1,6 +1,5 @@
 import pygame as pg
 from core.utils import path_utils, screen_utils, vectors_utils
-from core.consts import WindowConsts
 
 
 class RenderObject:
@@ -30,10 +29,8 @@ class RenderObject:
         rotated_model = self.model
 
         if self.entity.get_orientation_target_point():
-            converted_target_point_cords = screen_utils.convert_point_to_different_resolution(
-                [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], self.entity.get_orientation_target_point())
-
-            orientation_diff = vectors_utils.get_degrees_between_vectors(converted_target_point_cords, self.entity.render_object.position)
+            orientation_diff = vectors_utils.get_degrees_between_vectors(self.entity.get_orientation_target_point(),
+                                                                         self.entity.render_object.position)
 
             rotated_model = pg.transform.rotate(self.entity.render_object.model, orientation_diff)
 

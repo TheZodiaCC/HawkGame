@@ -72,10 +72,7 @@ class Window:
         target_point = entity.orientation_target_point
 
         if target_point:
-            tp = screen_utils.convert_point_to_different_resolution(
-                [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], target_point)
-
-            pg.draw.line(self.frame, (255, 255, 255), pos, tp, 2)
+            pg.draw.line(self.frame, (255, 255, 255), pos, target_point, 2)
 
     def render_debug_info(self):
         debug_data = [

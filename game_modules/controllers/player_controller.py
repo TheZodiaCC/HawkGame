@@ -1,5 +1,7 @@
 import pygame as pg
 from game_modules.entities.consts import PlayerConsts
+from core.utils import screen_utils
+from core.consts import WindowConsts
 
 
 class PlayerController:
@@ -19,7 +21,10 @@ class PlayerController:
     def handle_rotation(self):
         if pg.mouse.get_focused():
             if not self.is_freecam_on:
-                self.player.set_orientation_target_point(pg.mouse.get_pos())
+                converted_dest_vector = screen_utils.convert_point_to_different_resolution(
+                    [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], pg.mouse.get_pos())
+
+                self.player.set_orientation_target_point(converted_dest_vector)
 
     def switch_freecam(self):
         self.is_freecam_on = not self.is_freecam_on

@@ -28,7 +28,11 @@ class Window:
         self.frame.blit(text, position)
 
     def update_frame(self):
-        frame = pg.transform.scale(self.frame, (self.screen_width, self.screen_height))
+        frame = self.frame
+
+        if self.screen_width != WindowConsts.DESIGN_SCREEN_WIDTH and self.screen_height != WindowConsts.DESIGN_SCREEN_HEIGHT:
+            frame = pg.transform.scale(frame, (self.screen_width, self.screen_height))
+
         self.window.blit(frame, frame.get_rect())
 
     def update(self):

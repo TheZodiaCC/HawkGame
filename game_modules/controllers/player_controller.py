@@ -9,7 +9,7 @@ class PlayerController:
         self.player = self.game.objects_manager.player
         self.player_speed = PlayerConsts.PLAYER_MOVEMENT_SPEED
 
-        self.freecam = False
+        self.is_freecam_on = False
         self.move_object = self.player
 
     def update(self, dt):
@@ -18,12 +18,13 @@ class PlayerController:
 
     def handle_rotation(self):
         if pg.mouse.get_focused():
-            self.player.set_orientation_target_point(pg.mouse.get_pos())
+            if not self.is_freecam_on:
+                self.player.set_orientation_target_point(pg.mouse.get_pos())
 
     def switch_freecam(self):
-        self.freecam = not self.freecam
+        self.is_freecam_on = not self.is_freecam_on
 
-        if self.freecam:
+        if self.is_freecam_on:
             self.move_object = self.game.camera
 
         else:

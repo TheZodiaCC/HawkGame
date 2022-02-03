@@ -69,7 +69,7 @@ class Window:
         debug_data = [
             f"FPS: {int(self.game.clock.get_fps())}",
             f"Camera Pos: {self.game.camera.get_position()}",
-            f"Freecam: {self.game.player_controller.freecam}",
+            f"Freecam: {self.game.player_controller.is_freecam_on}",
             f"Player Pos: {self.game.objects_manager.player.get_position()}",
             f"Player Model Pos: {self.game.objects_manager.player.render_object.position}",
             f"Player Orientation Point: {self.game.objects_manager.player.get_orientation_target_point()}"

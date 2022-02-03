@@ -65,10 +65,17 @@ class Window:
 
         pg.draw.circle(self.frame, (255, 0, 0), pos, 2, 2)
         pg.draw.circle(self.frame, (255, 0, 0), pos, 10, 2)
-
         pg.draw.circle(self.frame, (0, 255, 0), [screen_pos[0], screen_pos[1]], 10, 2)
 
         pg.draw.rect(self.frame, (255, 255, 0), entity.render_object.rect, 2, 2)
+
+        target_point = entity.orientation_target_point
+
+        if target_point:
+            tp = screen_utils.convert_point_to_different_resolution(
+                [WindowConsts.SCREEN_WIDTH, WindowConsts.SCREEN_HEIGHT], target_point)
+
+            pg.draw.line(self.frame, (255, 255, 255), pos, tp, 2)
 
     def render_debug_info(self):
         debug_data = [

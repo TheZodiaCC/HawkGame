@@ -34,6 +34,9 @@ class PlayerController:
         if key == pg.K_f:
             self.switch_freecam()
 
+        elif key == pg.K_g:
+            self.game.switch_debug_mode()
+
     def handle_movement(self, dt):
         key = pg.key.get_pressed()
 

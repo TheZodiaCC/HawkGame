@@ -18,6 +18,8 @@ class Game:
         self.objects_manager = None
         self.camera = Camera()
 
+        self.is_debug_mode_on = False
+
         self.player_controller = None
 
     def init(self):
@@ -72,3 +74,6 @@ class Game:
 
     def quit(self):
         pg.quit()
+
+    def switch_debug_mode(self):
+        self.is_debug_mode_on = not self.is_debug_mode_on

@@ -41,7 +41,8 @@ class Window:
         pg.display.update()
 
     def update_ui(self):
-        self.render_debug_info()
+        if self.game.is_debug_mode_on:
+            self.render_debug_info()
 
     def handle_entities(self):
         for entity in self.game.objects_manager.game_objects:
@@ -55,7 +56,8 @@ class Window:
 
             self.frame.blit(rotated_model, transformed_position)
 
-            self.draw_entity_debug(entity)
+            if self.game.is_debug_mode_on:
+                self.draw_entity_debug(entity)
 
     def draw_entity_debug(self, entity):
         pos = entity.render_object.position
@@ -72,6 +74,7 @@ class Window:
         debug_data = [
             f"FPS: {int(self.game.clock.get_fps())}",
             f"Camera Pos: {self.game.camera.get_position()}",
+            f"Debug: {self.game.is_debug_mode_on}",
             f"Freecam: {self.game.player_controller.is_freecam_on}",
             f"Player Pos: {self.game.objects_manager.player.get_position()}",
             f"Player Model Pos: {self.game.objects_manager.player.render_object.position}",

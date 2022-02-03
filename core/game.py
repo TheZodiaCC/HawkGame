@@ -5,6 +5,7 @@ from core.objects_manager import ObjectsManager
 from core.render.window import Window
 from core.modules.camera import Camera
 from game_modules.controllers.player_controller import PlayerController
+from game_modules.debug.debug_controller import DebugController
 
 
 class Game:
@@ -19,6 +20,7 @@ class Game:
         self.camera = Camera()
 
         self.is_debug_mode_on = False
+        self.debug_controller = None
 
         self.player_controller = None
 
@@ -77,3 +79,9 @@ class Game:
 
     def switch_debug_mode(self):
         self.is_debug_mode_on = not self.is_debug_mode_on
+
+        if self.is_debug_mode_on:
+            self.debug_controller = DebugController(self)
+
+        else:
+            self.debug_controller = None

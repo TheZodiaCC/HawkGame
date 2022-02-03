@@ -18,6 +18,7 @@ class Window:
     def init(self):
         self.window = pg.display.set_mode((self.screen_width, self.screen_height))
         pg.display.set_caption(self.screen_caption_text)
+
         self.frame = pg.Surface((WindowConsts.DESIGN_SCREEN_WIDTH, WindowConsts.DESIGN_SCREEN_HEIGHT))
 
     def render_text(self, color, position, size, text):
@@ -42,6 +43,8 @@ class Window:
 
     def update_ui(self):
         if self.game.is_debug_mode_on:
+            self.game.debug_controller.update_debug_data()
+
             self.render_debug_info()
 
     def handle_entities(self):
@@ -75,15 +78,7 @@ class Window:
             pg.draw.line(self.frame, (255, 255, 255), pos, target_point, 2)
 
     def render_debug_info(self):
-        debug_data = [
-            f"FPS: {int(self.game.clock.get_fps())}",
-            f"Camera Pos: {self.game.camera.get_position()}",
-            f"Debug: {self.game.is_debug_mode_on}",
-            f"Freecam: {self.game.player_controller.is_freecam_on}",
-            f"Player Pos: {self.game.objects_manager.player.get_position()}",
-            f"Player Model Pos: {self.game.objects_manager.player.render_object.position}",
-            f"Player Orientation Point: {self.game.objects_manager.player.get_orientation_target_point()}"
-        ]
+        debug_data = self.game.debug_controller.get_debug_data()
 
         next_data_y = 0
         font_size = 30

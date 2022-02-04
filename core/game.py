@@ -34,7 +34,7 @@ class Game:
 
         self.player_controller = PlayerController(self)
 
-        self.camera.position = self.objects_manager.player.get_position()[:]
+        self.camera.position = self.objects_manager.player.position[:]
 
         self.window.init()
 

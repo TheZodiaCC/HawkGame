@@ -21,12 +21,12 @@ class DebugController:
 
         if self.game.debug_controller.prev_debug_ui_update > 20:
             self.fps_count = int(self.game.clock.get_fps())
-            self.camera_pos = self.game.camera.get_position()
+            self.camera_pos = self.game.camera.position
             self.is_debug_on = self.game.is_debug_mode_on
             self.is_freecam_on = self.game.player_controller.is_freecam_on
-            self.player_pos = self.game.objects_manager.player.get_position()
+            self.player_pos = self.game.objects_manager.player.position
             self.player_model_pos = self.game.objects_manager.player.render_object.position
-            self.player_orientation_pos = self.game.objects_manager.player.get_orientation_target_point()
+            self.player_orientation_pos = self.game.objects_manager.player.orientation_target_point
 
     def get_debug_data(self):
         debug_data = [
@@ -43,7 +43,7 @@ class DebugController:
 
     def draw_entity_debug(self, entity, frame):
         pos = entity.render_object.position
-        screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.get_position())
+        screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.position)
 
         pg.draw.circle(frame, (255, 0, 0), pos, 2, 2)
         pg.draw.circle(frame, (255, 0, 0), pos, 10, 2)

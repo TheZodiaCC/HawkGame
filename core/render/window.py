@@ -59,7 +59,7 @@ class Window:
                 self.frame = self.game.debug_controller.draw_entity_debug(entity, self.frame)
 
     def render_entity(self, entity):
-        camera_position = self.game.camera.get_position()
+        camera_position = self.game.camera.position
 
         if screen_utils.check_object_visibility(entity, camera_position):
             transformed_position, rotated_model = entity.render_object.calculate_render_position(camera_position)

@@ -28,8 +28,8 @@ class RenderObject:
     def handle_entity_rotation(self):
         rotated_model = self.model
 
-        if self.entity.get_orientation_target_point():
-            orientation_diff = vectors_utils.get_degrees_between_vectors(self.entity.get_orientation_target_point(),
+        if self.entity.orientation_target_point:
+            orientation_diff = vectors_utils.get_degrees_between_vectors(self.entity.orientation_target_point,
                                                                          self.entity.render_object.position)
 
             rotated_model = pg.transform.rotate(self.entity.render_object.model, orientation_diff)

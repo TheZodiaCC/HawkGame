@@ -23,7 +23,7 @@ class DebugController:
             self.fps_count = int(self.game.clock.get_fps())
             self.camera_pos = self.game.camera.position
             self.is_debug_on = self.game.is_debug_mode_on
-            self.is_freecam_on = self.game.player_controller.is_freecam_on
+            self.is_freecam_on = self.game.camera.is_freecam_on
             self.player_pos = self.game.objects_manager.player.position
             self.player_model_pos = self.game.objects_manager.player.render_object.position
             self.player_orientation_pos = self.game.objects_manager.player.orientation_target_point

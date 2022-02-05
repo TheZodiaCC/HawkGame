@@ -1,5 +1,5 @@
 import pygame as pg
-from core.consts import WindowConsts
+from core.core_consts import WindowConsts
 from core.utils import screen_utils
 
 

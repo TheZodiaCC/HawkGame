@@ -1,5 +1,5 @@
 import os
-from core.consts import WindowConsts
+from core.core_consts import WindowConsts
 
 
 class PlayerConsts:

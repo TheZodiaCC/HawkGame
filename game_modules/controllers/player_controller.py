@@ -1,7 +1,7 @@
 import pygame as pg
-from game_modules.entities.consts import PlayerConsts
+from game_modules.entities.entities_consts import PlayerConsts
 from core.utils import screen_utils
-from core.consts import WindowConsts
+from core.core_consts import WindowConsts
 
 
 class PlayerController:

@@ -1,6 +1,6 @@
 import pygame as pg
 from core.utils import screen_utils
-from game_modules.debug.consts import DebugConsts
+from game_modules.debug.debug_consts import DebugConsts
 
 
 class DebugController:

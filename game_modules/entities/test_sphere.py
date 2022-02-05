@@ -1,5 +1,5 @@
 from game_modules.entities.entity_base import EntityBase
-from game_modules.entities.consts import PlayerConsts
+from game_modules.entities.entities_consts import PlayerConsts
 from core.render.render_object import RenderObject
 
 

@@ -1,6 +1,6 @@
 import pygame as pg
 import time
-from core.consts import WindowConsts, GameConsts
+from core.core_consts import WindowConsts, GameConsts
 from core.objects_manager import ObjectsManager
 from core.render.window import Window
 from core.modules.camera import Camera

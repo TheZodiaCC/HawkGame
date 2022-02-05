@@ -1,5 +1,6 @@
 import pygame as pg
 from core.utils import screen_utils
+from game_modules.debug.consts import DebugConsts
 
 
 class DebugController:
@@ -45,16 +46,15 @@ class DebugController:
         pos = entity.render_object.position
         screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.position)
 
-        pg.draw.circle(frame, (255, 0, 0), pos, 2, 2)
-        pg.draw.circle(frame, (255, 0, 0), pos, 10, 2)
-        pg.draw.circle(frame, (0, 255, 0), [screen_pos[0], screen_pos[1]], 10, 2)
+        pg.draw.circle(frame, DebugConsts.RENDER_OBJECT_MODEL_POSITION_COLOR, pos, 2, 2)
+        pg.draw.circle(frame, DebugConsts.OBJECT_SCREEN_CONVERTED_POSITION_COLOR, [screen_pos[0], screen_pos[1]], 10, 2)
 
-        pg.draw.rect(frame, (255, 255, 0), entity.render_object.rect, 2, 2)
+        pg.draw.rect(frame, DebugConsts.RENDER_OBJECT_RECT_COLOR, entity.render_object.rect, 2, 2)
 
         target_point = entity.orientation_target_point
 
-        if target_point:
-            pg.draw.line(frame, (255, 255, 255), pos, target_point, 2)
+        if target_point and not self.game.camera.is_freecam_on:
+            pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, target_point, 2)
 
         return frame
 
@@ -65,6 +65,6 @@ class DebugController:
         font_size = 30
 
         for data in debug_data:
-            self.game.window.render_text((255, 255, 255), (0, next_data_y), font_size, data)
+            self.game.window.render_text(DebugConsts.TEXT_COLOR, (0, next_data_y), font_size, data)
 
             next_data_y += font_size

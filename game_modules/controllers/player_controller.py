@@ -2,6 +2,7 @@ import pygame as pg
 from game_modules.entities.entities_consts import PlayerConsts
 from core.utils import screen_utils
 from core.core_consts import WindowConsts
+from game_modules.controllers.player_controller_consts import PlayerControllerConsts
 
 
 class PlayerController:
@@ -44,16 +45,16 @@ class PlayerController:
     def handle_movement(self, dt):
         key = pg.key.get_pressed()
 
-        if key[pg.K_LEFT]:
+        if key[PlayerControllerConsts.MOVE_LEFT]:
             self.move_object.position[0] -= self.player_speed * dt
 
-        if key[pg.K_RIGHT]:
+        if key[PlayerControllerConsts.MOVE_RIGHT]:
             self.move_object.position[0] += self.player_speed * dt
 
-        if key[pg.K_UP]:
+        if key[PlayerControllerConsts.MOVE_UP]:
             self.move_object.position[1] -= self.player_speed * dt
 
-        if key[pg.K_DOWN]:
+        if key[PlayerControllerConsts.MOVE_DOWN]:
             self.move_object.position[1] += self.player_speed * dt
 
         self.game.camera.position = self.move_object.position[:]

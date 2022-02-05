@@ -29,7 +29,7 @@ class RenderObject:
         rotated_model = self.model
 
         if self.entity.orientation_target_point:
-            orientation_diff = vectors_utils.get_degrees_between_vectors(self.entity.orientation_target_point,
+            orientation_diff = vectors_utils.get_normalized_rotation_degrees_between_vectors(self.entity.orientation_target_point,
                                                                          self.entity.render_object.position)
 
             rotated_model = pg.transform.rotate(self.entity.render_object.model, orientation_diff)

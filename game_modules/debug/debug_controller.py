@@ -1,5 +1,5 @@
 import pygame as pg
-from core.utils import screen_utils
+from core.utils import screen_utils, vectors_utils
 from game_modules.debug.debug_consts import DebugConsts
 
 
@@ -54,7 +54,18 @@ class DebugController:
         target_point = entity.orientation_target_point
 
         if target_point and not self.game.camera.is_freecam_on:
-            pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, target_point, 2)
+            pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, target_point, 2)
+
+            pg.draw.circle(frame, DebugConsts.RENDER_OBJECT_RECT_COLOR, screen_pos, 500, 2)
+
+            angle_between_target = vectors_utils.get_angle_between_vectors(target_point, screen_pos)
+
+            first_fov_point = vectors_utils.get_point_on_circle(screen_pos, 500, angle_between_target + 20)
+            second_fov_point = vectors_utils.get_point_on_circle(screen_pos, 500, angle_between_target - 20)
+
+            pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, first_fov_point, 2)
+            pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, second_fov_point, 2)
+            # pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, target_point, 2)
 
         return frame
 

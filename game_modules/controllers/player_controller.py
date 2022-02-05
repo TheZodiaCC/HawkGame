@@ -36,10 +36,10 @@ class PlayerController:
             self.move_object = self.player
 
     def handle_keys(self, key):
-        if key == pg.K_f:
+        if key == PlayerControllerConsts.FREECAM_SWITCH_KEY:
             self.switch_freecam()
 
-        elif key == pg.K_g:
+        elif key == PlayerControllerConsts.DEBUG_MODE_SWITCH_KEY:
             self.game.switch_debug_mode()
 
     def handle_movement(self, dt):

@@ -23,3 +23,5 @@ class WorldConsts:
     WORLD_SIZE_X_MAX = 1000
     WORLD_SIZE_Y_MIN = 0
     WORLD_SIZE_Y_MAX = 1000
+
+    FOV_RADIUS = WindowConsts.DESIGN_SCREEN_WIDTH / 2

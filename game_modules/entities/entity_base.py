@@ -4,6 +4,7 @@ class EntityBase:
         self.orientation_target_point = None
 
         self.fov = 0
+        self.fov_radius = 0
 
         self.render_object = None
 

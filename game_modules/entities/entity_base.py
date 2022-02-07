@@ -3,6 +3,8 @@ class EntityBase:
         self.position = [0, 0]
         self.orientation_target_point = None
 
+        self.fov = 0
+
         self.render_object = None
 
     def set_orientation_target_point(self, dest_vector):

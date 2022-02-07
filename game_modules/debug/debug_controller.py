@@ -60,8 +60,8 @@ class DebugController:
 
             angle_between_target = vectors_utils.get_angle_between_vectors(target_point, screen_pos)
 
-            first_fov_point = vectors_utils.get_point_on_circle(screen_pos, 500, angle_between_target + 20)
-            second_fov_point = vectors_utils.get_point_on_circle(screen_pos, 500, angle_between_target - 20)
+            first_fov_point = vectors_utils.get_point_on_circle(screen_pos, 500, angle_between_target + entity.fov / 2)
+            second_fov_point = vectors_utils.get_point_on_circle(screen_pos, 500, angle_between_target - entity.fov / 2)
 
             pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, first_fov_point, 2)
             pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, second_fov_point, 2)

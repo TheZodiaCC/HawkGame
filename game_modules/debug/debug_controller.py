@@ -67,7 +67,9 @@ class DebugController:
 
                 pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, first_fov_point, 2)
                 pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, second_fov_point, 2)
-                # pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, target_point, 2)
+
+                for ent in self.game.objects_manager.game_objects:
+                    pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, ent.render_object.position, 2)
 
         return frame
 

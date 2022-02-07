@@ -52,7 +52,7 @@ class Window:
             self.game.debug_controller.render_debug_info()
 
     def handle_entities(self):
-        for entity in self.game.objects_manager.game_objects:
+        for entity in self.game.entities_manager.entities:
             self.render_entity(entity)
 
             if self.game.is_debug_mode_on:

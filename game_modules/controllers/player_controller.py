@@ -9,7 +9,7 @@ class PlayerController:
     def __init__(self, game):
         self.game = game
 
-        self.player = self.game.objects_manager.player
+        self.player = self.game.entities_manager.player
         self.player_speed = PlayerConsts.PLAYER_MOVEMENT_SPEED
 
         self.move_object = self.player

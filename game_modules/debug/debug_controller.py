@@ -26,9 +26,9 @@ class DebugController:
             self.camera_pos = self.game.camera.position
             self.is_debug_on = self.game.is_debug_mode_on
             self.is_freecam_on = self.game.camera.is_freecam_on
-            self.player_pos = self.game.objects_manager.player.position
-            self.player_model_pos = self.game.objects_manager.player.render_object.position
-            self.player_orientation_pos = self.game.objects_manager.player.orientation_target_point
+            self.player_pos = self.game.entities_manager.player.position
+            self.player_model_pos = self.game.entities_manager.player.render_object.position
+            self.player_orientation_pos = self.game.entities_manager.player.orientation_target_point
 
     def get_debug_data(self):
         debug_data = [
@@ -68,7 +68,7 @@ class DebugController:
                 pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, first_fov_point, 2)
                 pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, second_fov_point, 2)
 
-                for ent in self.game.objects_manager.game_objects:
+                for ent in self.game.entities_manager.entities:
                     pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, ent.render_object.position, 2)
 
         return frame

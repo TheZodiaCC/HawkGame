@@ -1,7 +1,7 @@
 import pygame as pg
 import time
 from core.core_consts import WindowConsts, GameConsts
-from core.objects_manager import ObjectsManager
+from core.entities_manager import EntitiesManager
 from core.render.window import Window
 from core.modules.camera import Camera
 from game_modules.controllers.player_controller import PlayerController
@@ -16,7 +16,7 @@ class Game:
         self.clock = pg.time.Clock()
         self.delta_time = 0
 
-        self.objects_manager = None
+        self.entities_manager = None
         self.camera = Camera()
 
         self.is_debug_mode_on = False
@@ -27,14 +27,14 @@ class Game:
     def init(self):
         pg.init()
 
-        self.objects_manager = ObjectsManager()
-        self.objects_manager.add_debug_object()
+        self.entities_manager = EntitiesManager()
+        self.entities_manager.add_debug_entity()
 
-        self.objects_manager.init_player()
+        self.entities_manager.init_player()
 
         self.player_controller = PlayerController(self)
 
-        self.camera.position = self.objects_manager.player.position[:]
+        self.camera.position = self.entities_manager.player.position[:]
 
         self.window.init()
 

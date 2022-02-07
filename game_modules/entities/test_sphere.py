@@ -8,4 +8,4 @@ class TestSphere(EntityBase):
         super().__init__()
 
         self.position = [0, 0]
-        self.render_object = RenderObject(self, PlayerConsts.PLAYER_MODEL_PATH, PlayerConsts.PLAYER_MODEL_SIZE)
+        self.render_object = RenderObject(self, PlayerConsts.MODEL_PATH, PlayerConsts.MODEL_SIZE)

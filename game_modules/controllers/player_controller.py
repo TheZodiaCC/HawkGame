@@ -10,7 +10,7 @@ class PlayerController:
         self.game = game
 
         self.player = self.game.entities_manager.player
-        self.player_speed = PlayerConsts.PLAYER_MOVEMENT_SPEED
+        self.player_speed = PlayerConsts.MOVEMENT_SPEED
 
         self.move_object = self.player
 

@@ -8,6 +8,6 @@ class Player(EntityBase):
         super().__init__()
 
         self.position = [500, 500]
-        self.fov = PlayerConsts.PLAYER_FOV
-        self.fov_radius = PlayerConsts.PLAYER_FOV_RADIUS
-        self.render_object = RenderObject(self, PlayerConsts.PLAYER_MODEL_PATH, PlayerConsts.PLAYER_MODEL_SIZE)
+        self.fov = PlayerConsts.FOV
+        self.fov_radius = PlayerConsts.FOV_RADIUS
+        self.render_object = RenderObject(self, PlayerConsts.MODEL_PATH, PlayerConsts.MODEL_SIZE)

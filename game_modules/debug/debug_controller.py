@@ -76,8 +76,20 @@ class DebugController:
                         entity_pos_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius,
                                                                              vectors_utils.get_angle_between_vectors(entitiy_screen_pos, screen_pos))
 
-                        # pg.draw.line(frame, DebugConsts.ENTITIES_LINE, pos, entitiy_screen_pos, 2)
-                        pg.draw.line(frame, DebugConsts.ENTITIES_LINE, pos, entity_pos_fov_point, 2)
+                        angle_between_fov_and_target = vectors_utils.get_normalized_rotation_degrees_between_vectors(
+                            screen_pos, entity_pos_fov_point)
+                        angle_between_first_fov_point = vectors_utils.get_normalized_rotation_degrees_between_vectors(
+                            screen_pos, first_fov_point)
+                        angle_between_second_fov_point = vectors_utils.get_normalized_rotation_degrees_between_vectors(
+                            screen_pos, second_fov_point)
+
+                        if angle_between_first_fov_point <= angle_between_fov_and_target <= angle_between_second_fov_point:
+                            entity_line_color = DebugConsts.VISIBLE_ENTITIES_LINE
+
+                        else:
+                            entity_line_color = DebugConsts.INVISIBLE_ENTITIES_LINE
+
+                        pg.draw.line(frame, entity_line_color, pos, entity_pos_fov_point, 2)
 
         return frame
 

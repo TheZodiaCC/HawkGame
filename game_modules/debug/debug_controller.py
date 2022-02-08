@@ -48,7 +48,7 @@ class DebugController:
         screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.position)
 
         pg.draw.circle(frame, DebugConsts.RENDER_OBJECT_MODEL_POSITION_COLOR, pos, 2, 2)
-        pg.draw.circle(frame, DebugConsts.OBJECT_SCREEN_CONVERTED_POSITION_COLOR, [screen_pos[0], screen_pos[1]], 10, 2)
+        pg.draw.circle(frame, DebugConsts.OBJECT_SCREEN_CONVERTED_POSITION_COLOR, screen_pos, 10, 2)
 
         pg.draw.rect(frame, DebugConsts.RENDER_OBJECT_RECT_COLOR, entity.render_object.rect, 2, 2)
 
@@ -69,7 +69,15 @@ class DebugController:
                 pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, second_fov_point, 2)
 
                 for ent in self.game.entities_manager.entities:
-                    pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, ent.render_object.position, 2)
+                    if not isinstance(ent, Player):
+                        entitiy_screen_pos = screen_utils.convert_game_position_to_screen_position(
+                            ent.position, self.game.camera.position)
+
+                        entity_pos_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius,
+                                                                             vectors_utils.get_angle_between_vectors(entitiy_screen_pos, screen_pos))
+
+                        # pg.draw.line(frame, DebugConsts.ENTITIES_LINE, pos, entitiy_screen_pos, 2)
+                        pg.draw.line(frame, DebugConsts.ENTITIES_LINE, pos, entity_pos_fov_point, 2)
 
         return frame
 

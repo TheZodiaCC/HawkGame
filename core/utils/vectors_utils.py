@@ -24,3 +24,14 @@ def get_point_on_circle(circle_center, circle_radius, offset_angle):
     y = circle_center[1] + (circle_radius * math.sin(offset_angle))
 
     return [x, y]
+
+
+def get_distance_between_vectors(first_vector, second_vector):
+    x_1 = first_vector[0]
+    y_1 = first_vector[1]
+    x_2 = second_vector[0]
+    y_2 = second_vector[1]
+
+    position = math.sqrt(math.pow((x_2 - x_1), 2) + math.pow((y_2 - y_1), 2))
+
+    return position

@@ -43,6 +43,10 @@ def check_object_visibility(object, camera_position):
     return visible
 
 
+def check_fov_visibility():
+    pass
+
+
 def convert_game_position_to_screen_position(object_position, camera_position):
     camera_width = GameConsts.CAMERA_RESOLUTION_WIDTH
     camera_height = GameConsts.CAMERA_RESOLUTION_HEIGHT

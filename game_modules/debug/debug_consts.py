@@ -4,3 +4,4 @@ class DebugConsts:
     RENDER_OBJECT_RECT_COLOR = (255, 255, 0)
     AIM_LINE_COLOR = (255, 255, 255)
     TEXT_COLOR = (255, 255, 255)
+    ENTITIES_LINE = (155, 155, 155)

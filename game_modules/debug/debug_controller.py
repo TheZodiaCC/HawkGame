@@ -1,5 +1,6 @@
 import pygame as pg
 from core.utils import screen_utils, vectors_utils
+from core.core_consts import WorldConsts
 from game_modules.debug.debug_consts import DebugConsts
 from game_modules.entities.player import Player
 
@@ -44,13 +45,21 @@ class DebugController:
         return debug_data
 
     def draw_entity_debug(self, entity, frame):
-        pos = entity.render_object.position
         screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.position)
 
-        pg.draw.circle(frame, DebugConsts.RENDER_OBJECT_MODEL_POSITION_COLOR, pos, 2, 2)
         pg.draw.circle(frame, DebugConsts.OBJECT_SCREEN_CONVERTED_POSITION_COLOR, screen_pos, 10, 2)
 
+        collider_cords = entity.collider.get_xywh()
+
+        collider_rect_pos_xy = screen_utils.convert_game_position_to_screen_position([collider_cords[0], collider_cords[1]],
+                                                                                       self.game.camera.position)
+
+        collider_screen_rect = pg.Rect(collider_rect_pos_xy[0], collider_rect_pos_xy[1],
+                                       collider_cords[2] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR,
+                                       collider_cords[3] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR)
+
         pg.draw.rect(frame, DebugConsts.RENDER_OBJECT_RECT_COLOR, entity.render_object.rect, 2, 2)
+        pg.draw.rect(frame, DebugConsts.COLLIDER_RECT_COLOR, collider_screen_rect, 2, 2)
 
         target_point = entity.orientation_target_point
 
@@ -65,8 +74,8 @@ class DebugController:
                 first_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius, angle_between_target + entity.fov / 2)
                 second_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius, angle_between_target - entity.fov / 2)
 
-                pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, first_fov_point, 2)
-                pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, pos, second_fov_point, 2)
+                pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, first_fov_point, 2)
+                pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, second_fov_point, 2)
 
                 for ent in self.game.entities_manager.entities:
                     if not isinstance(ent, Player):
@@ -89,7 +98,7 @@ class DebugController:
                         else:
                             entity_line_color = DebugConsts.INVISIBLE_ENTITIES_LINE
 
-                        pg.draw.line(frame, entity_line_color, pos, entity_pos_fov_point, 2)
+                        pg.draw.line(frame, entity_line_color, screen_pos, entity_pos_fov_point, 2)
 
         return frame
 

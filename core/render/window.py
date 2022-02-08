@@ -53,16 +53,24 @@ class Window:
 
     def handle_entities(self):
         for entity in self.game.entities_manager.entities:
-            self.render_entity(entity)
+            self.render_entity_when_visible(entity)
 
             if self.game.is_debug_mode_on:
                 self.frame = self.game.debug_controller.draw_entity_debug(entity, self.frame)
 
+    def render_entity_when_visible(self, entity):
+        camera_position = self.game.camera.position
+
+        if self.game.camera.is_freecam_on:
+            if screen_utils.check_object_visibility(entity, camera_position):
+                self.render_entity(entity)
+        else:
+            if screen_utils.check_if_in_fov_radius(entity.position, camera_position):
+                self.render_entity(entity)
+
     def render_entity(self, entity):
         camera_position = self.game.camera.position
 
-        if screen_utils.check_object_visibility(entity, camera_position):
-            if screen_utils.check_if_in_fov_radius(entity.position, camera_position):
-                transformed_position, rotated_model = entity.render_object.calculate_render_position(camera_position)
+        transformed_position, rotated_model = entity.render_object.calculate_render_position(camera_position)
 
-                self.frame.blit(rotated_model, transformed_position)
+        self.frame.blit(rotated_model, transformed_position)

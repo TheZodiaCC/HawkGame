@@ -14,9 +14,9 @@ def get_normalized_rotation_degrees_between_vectors(first_vector, second_vector)
 
 
 def get_angle_between_vectors(first_vector, second_vector):
-    degrees = math.atan2(first_vector[1] - second_vector[1], first_vector[0] - second_vector[0])
+    angle = math.atan2(first_vector[1] - second_vector[1], first_vector[0] - second_vector[0])
 
-    return degrees
+    return angle
 
 
 def get_point_on_circle(circle_center, circle_radius, offset_angle):

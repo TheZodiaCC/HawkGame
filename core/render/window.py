@@ -62,6 +62,7 @@ class Window:
         camera_position = self.game.camera.position
 
         if screen_utils.check_object_visibility(entity, camera_position):
-            transformed_position, rotated_model = entity.render_object.calculate_render_position(camera_position)
+            if screen_utils.check_if_in_fov_radius(entity.position, camera_position):
+                transformed_position, rotated_model = entity.render_object.calculate_render_position(camera_position)
 
-            self.frame.blit(rotated_model, transformed_position)
+                self.frame.blit(rotated_model, transformed_position)

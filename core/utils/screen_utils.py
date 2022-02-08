@@ -1,4 +1,5 @@
 from core.core_consts import WindowConsts, GameConsts, WorldConsts
+from core.utils import vectors_utils
 
 
 def convert_point_to_different_resolution(current_resolution, cords):
@@ -43,8 +44,15 @@ def check_object_visibility(object, camera_position):
     return visible
 
 
-def check_fov_visibility():
-    pass
+def check_if_in_fov_radius(object_position, camera_position):
+    in_fov = False
+
+    distance_between_objects = vectors_utils.get_distance_between_vectors(object_position, camera_position)
+
+    if distance_between_objects <= WorldConsts.FOV_RADIUS / WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR:
+        in_fov = True
+
+    return in_fov
 
 
 def convert_game_position_to_screen_position(object_position, camera_position):

@@ -49,7 +49,7 @@ class DebugController:
 
         pg.draw.circle(frame, DebugConsts.OBJECT_SCREEN_CONVERTED_POSITION_COLOR, screen_pos, 10, 2)
 
-        collider_cords = entity.collider.get_xywh()
+        collider_cords = entity.collider.get_world_xywh()
 
         collider_rect_pos_xy = screen_utils.convert_game_position_to_screen_position([collider_cords[0], collider_cords[1]],
                                                                                        self.game.camera.position)

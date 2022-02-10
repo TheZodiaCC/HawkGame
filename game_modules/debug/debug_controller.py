@@ -91,16 +91,6 @@ class DebugController:
                         angle_between_second_fov_point = vectors_utils.get_rotation_degrees_between_vectors(
                             screen_pos, second_fov_point)
 
-                        # print("*")
-                        # print(angle_between_first_fov_point)
-                        # print(angle_between_fov_and_target)
-                        # print(angle_between_second_fov_point)
-                        # print("*")
-                        # print(angle_between_first_fov_point <= angle_between_fov_and_target <= angle_between_second_fov_point)
-                        # print(angle_between_second_fov_point <= angle_between_first_fov_point <= angle_between_fov_and_target)
-                        # print(angle_between_fov_and_target <= angle_between_second_fov_point <= angle_between_first_fov_point)
-                        # print("*")
-
                         entity_line_color = DebugConsts.INVISIBLE_ENTITIES_LINE
 
                         if angle_between_first_fov_point <= angle_between_fov_and_target <= angle_between_second_fov_point or \

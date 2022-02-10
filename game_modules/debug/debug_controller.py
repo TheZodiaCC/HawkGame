@@ -58,7 +58,6 @@ class DebugController:
                                        collider_cords[2] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR,
                                        collider_cords[3] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR)
 
-        pg.draw.rect(frame, DebugConsts.RENDER_OBJECT_RECT_COLOR, entity.render_object.rect, 2, 2)
         pg.draw.rect(frame, DebugConsts.COLLIDER_RECT_COLOR, collider_screen_rect, 2, 2)
 
         target_point = entity.orientation_target_point

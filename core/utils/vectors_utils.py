@@ -13,6 +13,18 @@ def get_normalized_rotation_degrees_between_vectors(first_vector, second_vector)
     return degrees
 
 
+def get_rotation_degrees_between_vectors(first_vector, second_vector):
+    f_x = first_vector[0]
+    f_y = first_vector[1]
+    s_x = second_vector[0]
+    s_y = second_vector[1]
+
+    radians = math.atan2(-(s_y - f_y), s_x - f_x)
+    degrees = math.degrees(radians)
+
+    return degrees
+
+
 def get_angle_between_vectors(first_vector, second_vector):
     angle = math.atan2(first_vector[1] - second_vector[1], first_vector[0] - second_vector[0])
 

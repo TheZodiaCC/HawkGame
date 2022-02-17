@@ -84,18 +84,10 @@ class DebugController:
                         entity_pos_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius,
                                                                              vectors_utils.get_angle_between_vectors(entitiy_screen_pos, screen_pos))
 
-                        angle_between_fov_and_target = vectors_utils.get_rotation_degrees_between_vectors(
-                            screen_pos, entity_pos_fov_point)
-                        angle_between_first_fov_point = vectors_utils.get_rotation_degrees_between_vectors(
-                            screen_pos, first_fov_point)
-                        angle_between_second_fov_point = vectors_utils.get_rotation_degrees_between_vectors(
-                            screen_pos, second_fov_point)
-
                         entity_line_color = DebugConsts.INVISIBLE_ENTITIES_LINE
 
-                        if angle_between_first_fov_point <= angle_between_fov_and_target <= angle_between_second_fov_point or \
-                           angle_between_second_fov_point <= angle_between_first_fov_point <= angle_between_fov_and_target or \
-                           angle_between_fov_and_target <= angle_between_second_fov_point <= angle_between_first_fov_point:
+                        if vectors_utils.check_if_vector_between_two_vectors_on_circle(screen_pos, first_fov_point,
+                                                                                       second_fov_point, entity_pos_fov_point):
 
                             entity_line_color = DebugConsts.VISIBLE_ENTITIES_LINE
 

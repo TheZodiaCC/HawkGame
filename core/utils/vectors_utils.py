@@ -47,3 +47,19 @@ def get_distance_between_vectors(first_vector, second_vector):
     position = math.sqrt(math.pow((x_2 - x_1), 2) + math.pow((y_2 - y_1), 2))
 
     return position
+
+
+def check_if_vector_between_two_vectors_on_circle(root_vector, first_vector, second_vector, check_vector):
+    result = False
+
+    angle_between_root_and_check = get_rotation_degrees_between_vectors(root_vector, check_vector)
+    angle_between_root_and_first_vector = get_rotation_degrees_between_vectors(root_vector, first_vector)
+    angle_between_root_and_second_vector = get_rotation_degrees_between_vectors(root_vector, second_vector)
+
+    if angle_between_root_and_first_vector <= angle_between_root_and_check <= angle_between_root_and_second_vector or \
+            angle_between_root_and_second_vector <= angle_between_root_and_first_vector <= angle_between_root_and_check or \
+            angle_between_root_and_check <= angle_between_root_and_second_vector <= angle_between_root_and_first_vector:
+
+        result = True
+
+    return result

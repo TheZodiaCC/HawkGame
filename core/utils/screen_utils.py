@@ -105,3 +105,19 @@ def convert_game_position_to_screen_position(object_position, camera_position):
 
     return converted_position
 
+
+def get_player_fov_cone_points(player_target_point, camera_position):
+    fov_radius = WorldConsts.FOV_RADIUS
+    player_fov = PlayerConsts.FOV
+
+    player_screen_pos = convert_game_position_to_screen_position(camera_position, camera_position)
+
+    angle_between_target = vectors_utils.get_angle_between_vectors(player_target_point, player_screen_pos)
+
+    first_fov_point = vectors_utils.get_point_on_circle(player_screen_pos, fov_radius,
+                                                        angle_between_target + player_fov / 2)
+    second_fov_point = vectors_utils.get_point_on_circle(player_screen_pos, fov_radius,
+                                                         angle_between_target - player_fov / 2)
+
+    return first_fov_point, second_fov_point
+

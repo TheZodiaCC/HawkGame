@@ -47,6 +47,8 @@ class Window:
         pg.display.update()
 
     def update_ui(self):
+        self.draw_fov_cone()
+
         if self.game.is_debug_mode_on:
             self.game.debug_controller.update_debug_data()
 
@@ -81,3 +83,14 @@ class Window:
         transformed_position, rotated_model = entity.render_object.calculate_render_position(camera_position)
 
         self.frame.blit(rotated_model, transformed_position)
+
+    def draw_fov_cone(self):
+        player_orientation_point = self.game.entities_manager.player.orientation_target_point
+        player_screen_pos = screen_utils.convert_game_position_to_screen_position(self.game.camera.position,
+                                                                                  self.game.camera.position)
+
+        first_fov_point, second_fov_point = screen_utils.get_player_fov_cone_points(player_orientation_point,
+                                                                                    self.game.camera.position)
+
+        pg.draw.line(self.frame, (255, 0, 255), player_screen_pos, first_fov_point, 2)
+        pg.draw.line(self.frame, (255, 0, 255), player_screen_pos, second_fov_point, 2)

@@ -1,6 +1,7 @@
 import pygame as pg
 from core.core_consts import WindowConsts
 from core.utils import screen_utils
+from game_modules.entities.player import Player
 
 
 class Window:
@@ -61,12 +62,18 @@ class Window:
     def render_entity_when_visible(self, entity):
         camera_position = self.game.camera.position
 
-        if self.game.camera.is_freecam_on:
-            if screen_utils.check_object_visibility(entity, camera_position):
-                self.render_entity(entity)
+        if isinstance(entity, Player):
+            self.render_entity(entity)
+
         else:
-            if screen_utils.check_if_in_fov_radius(entity.position, camera_position):
-                self.render_entity(entity)
+            if self.game.camera.is_freecam_on:
+                if screen_utils.check_object_visibility(entity, camera_position):
+                    self.render_entity(entity)
+            else:
+                if screen_utils.check_if_in_fov_radius(entity.position, camera_position):
+                    if screen_utils.check_if_in_fov_cone(entity.position, camera_position,
+                                                         self.game.entities_manager.player.orientation_target_point):
+                        self.render_entity(entity)
 
     def render_entity(self, entity):
         camera_position = self.game.camera.position

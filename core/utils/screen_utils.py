@@ -1,4 +1,5 @@
 from core.core_consts import WindowConsts, GameConsts, WorldConsts
+from game_modules.entities.entities_consts import PlayerConsts
 from core.utils import vectors_utils
 
 
@@ -53,6 +54,34 @@ def check_if_in_fov_radius(object_position, camera_position):
         in_fov = True
 
     return in_fov
+
+
+def check_if_in_fov_cone(object_position, camera_position, player_orientation_point):
+    visible = False
+
+    fov_radius = WorldConsts.FOV_RADIUS
+    player_fov = PlayerConsts.FOV
+    target_point = player_orientation_point
+
+    object_screen_pos = convert_game_position_to_screen_position(object_position, camera_position)
+    player_screen_pos = convert_game_position_to_screen_position(camera_position, camera_position)
+
+    angle_between_target = vectors_utils.get_angle_between_vectors(target_point, player_screen_pos)
+
+    first_fov_point = vectors_utils.get_point_on_circle(player_screen_pos, fov_radius,
+                                                        angle_between_target + player_fov / 2)
+    second_fov_point = vectors_utils.get_point_on_circle(player_screen_pos, fov_radius,
+                                                         angle_between_target - player_fov / 2)
+
+    entity_pos_fov_point = vectors_utils.get_point_on_circle(player_screen_pos, fov_radius,
+                                                             vectors_utils.get_angle_between_vectors(object_screen_pos,
+                                                                                                     player_screen_pos))
+
+    if vectors_utils.check_if_vector_between_two_vectors_on_circle(player_screen_pos, first_fov_point,
+                                                                   second_fov_point, entity_pos_fov_point):
+        visible = True
+
+    return visible
 
 
 def convert_game_position_to_screen_position(object_position, camera_position):

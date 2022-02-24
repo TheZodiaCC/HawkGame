@@ -86,11 +86,13 @@ class Window:
 
     def draw_fov_cone(self):
         player_orientation_point = self.game.entities_manager.player.orientation_target_point
-        player_screen_pos = screen_utils.convert_game_position_to_screen_position(self.game.camera.position,
-                                                                                  self.game.camera.position)
 
-        first_fov_point, second_fov_point = screen_utils.get_player_fov_cone_points(player_orientation_point,
-                                                                                    self.game.camera.position)
+        if player_orientation_point is not None:
+            player_screen_pos = screen_utils.convert_game_position_to_screen_position(self.game.camera.position,
+                                                                                      self.game.camera.position)
 
-        pg.draw.line(self.frame, (255, 0, 255), player_screen_pos, first_fov_point, 2)
-        pg.draw.line(self.frame, (255, 0, 255), player_screen_pos, second_fov_point, 2)
+            first_fov_point, second_fov_point = screen_utils.get_player_fov_cone_points(player_orientation_point,
+                                                                                        self.game.camera.position)
+
+            pg.draw.line(self.frame, (255, 0, 255), player_screen_pos, first_fov_point, 2)
+            pg.draw.line(self.frame, (255, 0, 255), player_screen_pos, second_fov_point, 2)

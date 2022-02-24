@@ -94,5 +94,5 @@ class Window:
             first_fov_point, second_fov_point = screen_utils.get_player_fov_cone_points(player_orientation_point,
                                                                                         self.game.camera.position)
 
-            pg.draw.line(self.frame, (255, 0, 255), player_screen_pos, first_fov_point, 2)
-            pg.draw.line(self.frame, (255, 0, 255), player_screen_pos, second_fov_point, 2)
+            pg.draw.line(self.frame, WindowConsts.FOV_CONE_LINES_COLOR, player_screen_pos, first_fov_point, 2)
+            pg.draw.line(self.frame, WindowConsts.FOV_CONE_LINES_COLOR, player_screen_pos, second_fov_point, 2)

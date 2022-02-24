@@ -64,7 +64,7 @@ def check_if_in_fov_cone(object_position, camera_position, player_orientation_po
     object_screen_pos = convert_game_position_to_screen_position(object_position, camera_position)
     player_screen_pos = convert_game_position_to_screen_position(camera_position, camera_position)
 
-    first_fov_point, second_fov_point = get_player_fov_cone_points(player_orientation_point,camera_position)
+    first_fov_point, second_fov_point = get_player_fov_cone_points(player_orientation_point, camera_position)
 
     entity_pos_fov_point = vectors_utils.get_point_on_circle(player_screen_pos, fov_radius,
                                                              vectors_utils.get_angle_between_vectors(object_screen_pos,

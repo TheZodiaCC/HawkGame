@@ -8,6 +8,8 @@ class WindowConsts:
 
     DEFAULT_FONT = "Comic Sans MS"
 
+    FOV_CONE_LINES_COLOR = (217, 217, 217)
+
 
 class GameConsts:
     FPS_LIMIT = 500

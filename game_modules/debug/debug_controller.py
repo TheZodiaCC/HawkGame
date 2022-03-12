@@ -44,15 +44,16 @@ class DebugController:
 
         return debug_data
 
-    def draw_entity_debug(self, entity, frame):
+    def draw_entity_collider(self, entity, frame):
         screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.position)
 
         pg.draw.circle(frame, DebugConsts.OBJECT_SCREEN_CONVERTED_POSITION_COLOR, screen_pos, 10, 2)
 
         collider_cords = entity.collider.get_world_xywh()
 
-        collider_rect_pos_xy = screen_utils.convert_game_position_to_screen_position([collider_cords[0], collider_cords[1]],
-                                                                                       self.game.camera.position)
+        collider_rect_pos_xy = screen_utils.convert_game_position_to_screen_position(
+            [collider_cords[0], collider_cords[1]],
+            self.game.camera.position)
 
         collider_screen_rect = pg.Rect(collider_rect_pos_xy[0], collider_rect_pos_xy[1],
                                        collider_cords[2] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR,
@@ -60,38 +61,48 @@ class DebugController:
 
         pg.draw.rect(frame, DebugConsts.COLLIDER_RECT_COLOR, collider_screen_rect, 2, 2)
 
+    def draw_player_debug(self, entity, frame):
+        screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.position)
         target_point = entity.orientation_target_point
 
+        if target_point and not self.game.camera.is_freecam_on:
+            pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, target_point, 2)
+
+            pg.draw.circle(frame, DebugConsts.RENDER_OBJECT_RECT_COLOR, screen_pos, entity.fov_radius, 2)
+
+            angle_between_target = vectors_utils.get_angle_between_vectors(target_point, screen_pos)
+
+            first_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius,
+                                                                angle_between_target + entity.fov / 2)
+            second_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius,
+                                                                 angle_between_target - entity.fov / 2)
+
+            pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, first_fov_point, 2)
+            pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, second_fov_point, 2)
+
+            for ent in self.game.entities_manager.entities:
+                if not isinstance(ent, Player):
+                    entitiy_screen_pos = screen_utils.convert_game_position_to_screen_position(
+                        ent.position, self.game.camera.position)
+
+                    entity_pos_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius,
+                                                                             vectors_utils.get_angle_between_vectors(
+                                                                                 entitiy_screen_pos, screen_pos))
+
+                    entity_line_color = DebugConsts.INVISIBLE_ENTITIES_LINE
+
+                    if vectors_utils.check_if_vector_between_two_vectors_on_circle(screen_pos, first_fov_point,
+                                                                                   second_fov_point,
+                                                                                   entity_pos_fov_point):
+                        entity_line_color = DebugConsts.VISIBLE_ENTITIES_LINE
+
+                    pg.draw.line(frame, entity_line_color, screen_pos, entity_pos_fov_point, 2)
+
+    def draw_entity_debug(self, entity, frame):
+        self.draw_entity_collider(entity, frame)
+
         if isinstance(entity, Player):
-            if target_point and not self.game.camera.is_freecam_on:
-                pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, target_point, 2)
-
-                pg.draw.circle(frame, DebugConsts.RENDER_OBJECT_RECT_COLOR, screen_pos, entity.fov_radius, 2)
-
-                angle_between_target = vectors_utils.get_angle_between_vectors(target_point, screen_pos)
-
-                first_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius, angle_between_target + entity.fov / 2)
-                second_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius, angle_between_target - entity.fov / 2)
-
-                pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, first_fov_point, 2)
-                pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, second_fov_point, 2)
-
-                for ent in self.game.entities_manager.entities:
-                    if not isinstance(ent, Player):
-                        entitiy_screen_pos = screen_utils.convert_game_position_to_screen_position(
-                            ent.position, self.game.camera.position)
-
-                        entity_pos_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius,
-                                                                             vectors_utils.get_angle_between_vectors(entitiy_screen_pos, screen_pos))
-
-                        entity_line_color = DebugConsts.INVISIBLE_ENTITIES_LINE
-
-                        if vectors_utils.check_if_vector_between_two_vectors_on_circle(screen_pos, first_fov_point,
-                                                                                       second_fov_point, entity_pos_fov_point):
-
-                            entity_line_color = DebugConsts.VISIBLE_ENTITIES_LINE
-
-                        pg.draw.line(frame, entity_line_color, screen_pos, entity_pos_fov_point, 2)
+            self.draw_player_debug(entity, frame)
 
         return frame
 

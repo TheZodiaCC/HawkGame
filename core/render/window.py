@@ -91,8 +91,9 @@ class Window:
             player_screen_pos = screen_utils.convert_game_position_to_screen_position(self.game.camera.position,
                                                                                       self.game.camera.position)
 
-            first_fov_point, second_fov_point = screen_utils.get_player_fov_cone_points(player_orientation_point,
-                                                                                        self.game.camera.position)
+            if not self.game.is_debug_mode_on and not self.game.camera.is_freecam_on:
+                first_fov_point, second_fov_point = screen_utils.get_player_fov_cone_points(player_orientation_point,
+                                                                                            self.game.camera.position)
 
-            pg.draw.line(self.frame, WindowConsts.FOV_CONE_LINES_COLOR, player_screen_pos, first_fov_point, 2)
-            pg.draw.line(self.frame, WindowConsts.FOV_CONE_LINES_COLOR, player_screen_pos, second_fov_point, 2)
+                pg.draw.line(self.frame, WindowConsts.FOV_CONE_LINES_COLOR, player_screen_pos, first_fov_point, 2)
+                pg.draw.line(self.frame, WindowConsts.FOV_CONE_LINES_COLOR, player_screen_pos, second_fov_point, 2)

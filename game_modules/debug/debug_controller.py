@@ -80,12 +80,7 @@ class DebugController:
 
             pg.draw.circle(frame, DebugConsts.RENDER_OBJECT_RECT_COLOR, screen_pos, entity.fov_radius, 2)
 
-            angle_between_target = vectors_utils.get_angle_between_vectors(target_point, screen_pos)
-
-            first_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius,
-                                                                angle_between_target + entity.fov / 2)
-            second_fov_point = vectors_utils.get_point_on_circle(screen_pos, entity.fov_radius,
-                                                                 angle_between_target - entity.fov / 2)
+            first_fov_point, second_fov_point = screen_utils.get_player_fov_cone_points(target_point, self.game.camera.position)
 
             pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, first_fov_point, 2)
             pg.draw.line(frame, DebugConsts.AIM_LINE_COLOR, screen_pos, second_fov_point, 2)

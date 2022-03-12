@@ -19,6 +19,7 @@ class EntitiesManager:
     def add_debug_entity(self):
         debug_sphere = TestSphere()
         debug_sphere.position = [530, 530]
-        debug_sphere.collider.setup_center(debug_sphere.position)
+        debug_sphere.collider.update(debug_sphere.position)
+        debug_sphere.collider.init()
 
         self.add_entity(debug_sphere)

@@ -1,6 +1,6 @@
 from game_modules.entities.entity_base import EntityBase
 from game_modules.entities.entities_consts import PlayerConsts
-from game_modules.objects_components.collider import Collider
+from game_modules.objects_components.rectangle_collider import RectangleCollider
 from core.render.render_object import RenderObject
 
 
@@ -12,4 +12,6 @@ class Player(EntityBase):
         self.fov = PlayerConsts.FOV
         self.fov_radius = PlayerConsts.FOV_RADIUS
         self.render_object = RenderObject(self, PlayerConsts.MODEL_PATH, PlayerConsts.MODEL_SIZE)
-        self.collider = Collider(self.position, PlayerConsts.MODEL_SIZE[0], PlayerConsts.MODEL_SIZE[1])
+
+        self.collider = RectangleCollider(self.position, PlayerConsts.MODEL_SIZE[0], PlayerConsts.MODEL_SIZE[1])
+        self.collider.init()

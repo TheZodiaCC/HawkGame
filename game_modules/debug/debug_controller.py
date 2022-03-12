@@ -3,6 +3,8 @@ from core.utils import screen_utils, vectors_utils
 from core.core_consts import WorldConsts
 from game_modules.debug.debug_consts import DebugConsts
 from game_modules.entities.player import Player
+from game_modules.objects_components.rectangle_collider import RectangleCollider
+from game_modules.objects_components.circle_collider import CircleCollider
 
 
 class DebugController:
@@ -45,21 +47,29 @@ class DebugController:
         return debug_data
 
     def draw_entity_collider(self, entity, frame):
-        screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.position)
+        collider = entity.collider
 
-        pg.draw.circle(frame, DebugConsts.OBJECT_SCREEN_CONVERTED_POSITION_COLOR, screen_pos, 10, 2)
+        if isinstance(collider, CircleCollider):
+            collider_center = collider.center
 
-        collider_cords = entity.collider.get_world_xywh()
+            collider_screen_pos = screen_utils.convert_game_position_to_screen_position(
+                [collider_center[0], collider_center[1]],
+                self.game.camera.position)
 
-        collider_rect_pos_xy = screen_utils.convert_game_position_to_screen_position(
-            [collider_cords[0], collider_cords[1]],
-            self.game.camera.position)
+            pg.draw.circle(frame, DebugConsts.RENDER_OBJECT_RECT_COLOR, collider_screen_pos, collider.radius, 2)
 
-        collider_screen_rect = pg.Rect(collider_rect_pos_xy[0], collider_rect_pos_xy[1],
-                                       collider_cords[2] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR,
-                                       collider_cords[3] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR)
+        elif isinstance(collider, RectangleCollider):
+            collider_cords = entity.collider.get_world_xywh()
 
-        pg.draw.rect(frame, DebugConsts.COLLIDER_RECT_COLOR, collider_screen_rect, 2, 2)
+            collider_rect_pos_xy = screen_utils.convert_game_position_to_screen_position(
+                [collider_cords[0], collider_cords[1]],
+                self.game.camera.position)
+
+            collider_screen_rect = pg.Rect(collider_rect_pos_xy[0], collider_rect_pos_xy[1],
+                                           collider_cords[2] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR,
+                                           collider_cords[3] * WorldConsts.WORLD_SIZE_TO_PIXELS_FACTOR)
+
+            pg.draw.rect(frame, DebugConsts.COLLIDER_RECT_COLOR, collider_screen_rect, 2, 2)
 
     def draw_player_debug(self, entity, frame):
         screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.position)
@@ -99,6 +109,10 @@ class DebugController:
                     pg.draw.line(frame, entity_line_color, screen_pos, entity_pos_fov_point, 2)
 
     def draw_entity_debug(self, entity, frame):
+        screen_pos = screen_utils.convert_game_position_to_screen_position(entity.position, self.game.camera.position)
+
+        pg.draw.circle(frame, DebugConsts.OBJECT_SCREEN_CONVERTED_POSITION_COLOR, screen_pos, 10, 2)
+
         self.draw_entity_collider(entity, frame)
 
         if isinstance(entity, Player):
